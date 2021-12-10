@@ -138,6 +138,8 @@ EXCEPTION
         pck_std_log.error( a_err_code=> sqlcode, a_comp=> $$plsql_unit, a_subcomp=>'Line'||$$plsql_line, a_text=> sqlerrm);
         RAISE;
 END;
-
 /
+
+
+show error
 

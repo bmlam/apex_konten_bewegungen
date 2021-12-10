@@ -15,3 +15,6 @@ begin
   END CASE;
 end;
 /
+
+
+show error

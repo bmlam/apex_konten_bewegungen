@@ -111,3 +111,6 @@ EXCEPTION
 END;
 /
 
+
+show error
+
