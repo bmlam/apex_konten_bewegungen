@@ -1,0 +1,9 @@
+CREATE TABLE app_action_audit
+( id NUMBER GENERATED ALWAYS AS IDENTITY
+ ,app_key  VARCHAR2(100)       NOT NULL 
+ ,login_user VARCHAR2(30) 
+ ,app_session_id VARCHAR2(30) 
+ ,action_key     VARCHAR2(50) NOT NULL 
+ ,additional_info VARCHAR2(200)
+ ,ts TIMESTAMP WITH TIME ZONE DEFAULT SYSTIMESTAMP  NOT NULL  
+);
