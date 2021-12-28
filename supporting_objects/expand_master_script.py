@@ -9,6 +9,7 @@ scripts = []
 
 nestingLev = 0 
 baseDir = ""
+baseToIgnoreInMaster= None
 allLines = []
 
 
@@ -17,6 +18,7 @@ def parseCmdArgs() :
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument( '-b','--baseDir', help='base location of scripts', required = True 	)
+	parser.add_argument( '-i','--ignoreBaseInMaster', help= "if master script contains a base location SQLPLUS variable" )
 	parser.add_argument( '-m','--masterScriptPath', required= True	)
 	# parser.add_argument( '-o','--outputFile', help='path of outputFile' )
 
@@ -37,7 +39,20 @@ def checkResolvePath( inpPath ):
 
 	return script
 
+def stripSqlVarForBaseLocation( scriptPath ):
+	global baseToIgnoreInMaster
+	retVal = scriptPath
+	toReplace = "&&" + baseToIgnoreInMaster + os.path.sep 
+	if scriptPath.startswith( toReplace ) :
+		retVal = scriptPath.replace( toReplace, "")
+	else: 
+		toReplace = "&" + baseToIgnoreInMaster + os.path.sep 
+		if scriptPath.startswith( toReplace ) :
+			retVal = scriptPath.replace( toReplace, "")
+	return retVal
+
 def gotChildPath ( text ):
+	global baseToIgnoreInMaster
 	#_dbx( text )
 	z = re.match ( "^\s*(@|@@)(\s+)(.*)$" , text )
 	if z:
@@ -45,8 +60,10 @@ def gotChildPath ( text ):
 		if len ( z.groups() ) == 3:
 			scriptPath = z.group(3) 
 			_dbx( scriptPath )
+			scriptPath = stripSqlVarForBaseLocation( scriptPath )
 
 			return scriptPath.strip()
+			_dbx( scriptPath )
 
 	z = re.match ( "^\s*(sta|star|start)(\s+)(.*)$" , text )
 	if z:
@@ -54,6 +71,7 @@ def gotChildPath ( text ):
 		if len ( z.groups() ) == 3:
 			scriptPath = z.group(3) 
 			_dbx( scriptPath )
+			scriptPath = stripSqlVarForBaseLocation( scriptPath )
 
 			return scriptPath.strip() 
 
@@ -71,21 +89,24 @@ def processScript( path ):
 	for line in lines:
 		childPath = gotChildPath( line )
 		if childPath:
-			allLines.append ( "********** imbedding script " + childPath + "********** ")
+			allLines.append ( "REM ********** imbedding script " + childPath + "********** ")
 			processScript( childPath )
 		else:
-			allLines.append( line.strip() )
+			allLines.append( line.rstrip() )
 	nestingLev -= 1
-	allLines.append ( "********** end of expansion of script " + path + "********** ")
+	allLines.append ( "REM ********** end of expansion of script " + path + "********** ")
 
 	scripts.pop ()
 	
 def main():
-	global baseDir 
+	global baseDir , baseToIgnoreInMaster
 
 	argObj = parseCmdArgs()
 	baseDir = argObj.baseDir 
 	setDebug ( True )
+
+	if argObj.ignoreBaseInMaster:
+		baseToIgnoreInMaster = argObj.ignoreBaseInMaster 
 
 	# following call is will process the master and children script recursively
 	processScript ( argObj.masterScriptPath )
