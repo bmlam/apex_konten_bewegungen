@@ -28,21 +28,21 @@ prompt APPLICATION 103 - FinanceDB2
 -- Application Export:
 --   Application:     103
 --   Name:            FinanceDB2
---   Date and Time:   14:50 Monday December 27, 2021
+--   Date and Time:   15:13 Wednesday December 29, 2021
 --   Exported By:     LAM
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                     12
---       Items:                   34
+--       Items:                   36
 --       Computations:             1
 --       Validations:              1
 --       Processes:               21
 --       Regions:                 31
---       Buttons:                 23
+--       Buttons:                 24
 --       Dynamic Actions:          1
 --     Shared Components:
 --       Logic:
---         Items:                  3
+--         Items:                  4
 --         Processes:              1
 --         Data Loads:             4
 --       Navigation:
@@ -119,7 +119,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'FinanceDB2'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211227143100'
+,p_last_upd_yyyymmddhh24miss=>'20211229151019'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null
@@ -372,10 +372,16 @@ wwv_flow_api.create_flow_process(
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'setup_appl_items'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE ',
+'  c_year_span PLS_INTEGER := 4;',
 'begin',
 '  :char_to_date_mask := ''yyyy-mm-dd'';',
 '  :test_beg := ''2021-01-01'';',
 '  :test_end := ''2021-03-31'';',
+'  SELECT to_number( to_char( sysdate, ''yyyy'' ) ) - c_year_span INTO :SEARCH_START_YYYY',
+'  FROM dual;',
+'  --:P11_START_YEAR := :SEARCH_START_YYYY;',
+'  :P11_YEARS_FROM_START := c_year_span; ',
 'END;'))
 ,p_process_clob_language=>'PLSQL'
 );
@@ -387,6 +393,16 @@ wwv_flow_api.create_flow_item(
  p_id=>wwv_flow_api.id(9579740655658358)
 ,p_name=>'CHAR_TO_DATE_MASK'
 ,p_protection_level=>'I'
+);
+end;
+/
+prompt --application/shared_components/logic/application_items/search_start_yyyy
+begin
+wwv_flow_api.create_flow_item(
+ p_id=>wwv_flow_api.id(9633996812838829)
+,p_name=>'SEARCH_START_YYYY'
+,p_protection_level=>'I'
+,p_item_comment=>'Used by facet search to filter booking start year by default '
 );
 end;
 /
@@ -12138,18 +12154,18 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211214175809'
+,p_last_upd_yyyymmddhh24miss=>'20211227161738'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9379093024985803)
-,p_plug_name=>'FinanceDB2'
+,p_plug_name=>'Kontenbewegungen'
 ,p_icon_css_classes=>'app-icon'
 ,p_region_template_options=>'#DEFAULT#'
-,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_api.id(9268896501985583)
 ,p_plug_display_sequence=>10
 ,p_plug_display_point=>'REGION_POSITION_01'
 ,p_plug_query_num_rows=>15
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 ,p_attribute_03=>'Y'
@@ -14047,7 +14063,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211217192457'
+,p_last_upd_yyyymmddhh24miss=>'20211229151019'
 );
 wwv_flow_api.create_report_region(
  p_id=>wwv_flow_api.id(9457515618005916)
@@ -14084,7 +14100,14 @@ wwv_flow_api.create_report_region(
 '       ULTIMATE_CREDITOR,',
 '       NUMBER_OF_TRANSACTIONS,',
 '       NUMBER_OF_CHEQUES',
-'  from v_BANK_TRANSACTION_facet'))
+'      ,amount BETRAG ',
+'  from v_BANK_TRANSACTION_facet',
+'  WHERE   ( :P11_START_YEAR IS NULL AND year_booking >= :SEARCH_START_YYYY ) ',
+'    OR (',
+'      year_booking >= to_number(:P11_START_YEAR ) AND ',
+'      year_booking <= to_number(:P11_START_YEAR ) + :P11_YEARS_FROM_START ',
+'    ) ',
+''))
 ,p_ajax_enabled=>'Y'
 ,p_lazy_loading=>false
 ,p_query_row_template=>wwv_flow_api.id(9302387896985604)
@@ -14115,8 +14138,8 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9466976196006162)
 ,p_query_column_id=>2
 ,p_column_alias=>'BANK_ALIAS'
-,p_column_display_sequence=>173
-,p_column_heading=>'Bank Alias'
+,p_column_display_sequence=>73
+,p_column_heading=>'Bank der Transaktion'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
 ,p_derived_column=>'N'
@@ -14126,8 +14149,8 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9467398044006162)
 ,p_query_column_id=>3
 ,p_column_alias=>'ACCOUNT_NO'
-,p_column_display_sequence=>183
-,p_column_heading=>'Account No'
+,p_column_display_sequence=>83
+,p_column_heading=>'Konto der Transaktion'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
 ,p_derived_column=>'N'
@@ -14138,7 +14161,7 @@ wwv_flow_api.create_report_columns(
 ,p_query_column_id=>4
 ,p_column_alias=>'BOOKING_DATE'
 ,p_column_display_sequence=>2
-,p_column_heading=>'Booking Date'
+,p_column_heading=>'Buchungstag'
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
 ,p_disable_sort_column=>'N'
@@ -14150,7 +14173,7 @@ wwv_flow_api.create_report_columns(
 ,p_query_column_id=>5
 ,p_column_alias=>'VALUE_DATE'
 ,p_column_display_sequence=>3
-,p_column_heading=>'Gebucht am'
+,p_column_heading=>'Wertstellung'
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
 ,p_disable_sort_column=>'N'
@@ -14174,22 +14197,16 @@ wwv_flow_api.create_report_columns(
 ,p_query_column_id=>7
 ,p_column_alias=>'Soll'
 ,p_column_display_sequence=>203
-,p_column_heading=>'Soll'
-,p_use_as_row_header=>'N'
-,p_disable_sort_column=>'N'
+,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
-,p_include_in_export=>'Y'
 );
 wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9402634923051412)
 ,p_query_column_id=>8
 ,p_column_alias=>'Haben'
 ,p_column_display_sequence=>213
-,p_column_heading=>'Haben'
-,p_use_as_row_header=>'N'
-,p_disable_sort_column=>'N'
+,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
-,p_include_in_export=>'Y'
 );
 wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9465725635006161)
@@ -14234,7 +14251,7 @@ wwv_flow_api.create_report_columns(
 ,p_query_column_id=>13
 ,p_column_alias=>'PAYMENT_DETAILS'
 ,p_column_display_sequence=>53
-,p_column_heading=>'Payment Details'
+,p_column_heading=>'Buchungstext'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
 ,p_disable_sort_column=>'N'
@@ -14245,7 +14262,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9460953226006159)
 ,p_query_column_id=>14
 ,p_column_alias=>'BENEFICIARY_ORIGINATOR'
-,p_column_display_sequence=>43
+,p_column_display_sequence=>143
 ,p_column_heading=>'Beneficiary Originator'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14257,8 +14274,8 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9461784400006159)
 ,p_query_column_id=>15
 ,p_column_alias=>'IBAN'
-,p_column_display_sequence=>63
-,p_column_heading=>'Iban'
+,p_column_display_sequence=>87
+,p_column_heading=>'Kontrahenten-IBAN'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
 ,p_disable_sort_column=>'N'
@@ -14269,8 +14286,8 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9462187701006160)
 ,p_query_column_id=>16
 ,p_column_alias=>'BIC'
-,p_column_display_sequence=>73
-,p_column_heading=>'Bic'
+,p_column_display_sequence=>89
+,p_column_heading=>'Kontrahenten-BIC'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
 ,p_disable_sort_column=>'N'
@@ -14282,28 +14299,22 @@ wwv_flow_api.create_report_columns(
 ,p_query_column_id=>17
 ,p_column_alias=>'YEAR_BOOKING'
 ,p_column_display_sequence=>223
-,p_column_heading=>'Year Booking'
-,p_use_as_row_header=>'N'
-,p_disable_sort_column=>'N'
+,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
-,p_include_in_export=>'Y'
 );
 wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9402835166051414)
 ,p_query_column_id=>18
 ,p_column_alias=>'MONTH_BOOKING'
 ,p_column_display_sequence=>233
-,p_column_heading=>'Month Booking'
-,p_use_as_row_header=>'N'
-,p_disable_sort_column=>'N'
+,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
-,p_include_in_export=>'Y'
 );
 wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9462514274006160)
 ,p_query_column_id=>19
 ,p_column_alias=>'CUSTOMER_REFERENCE'
-,p_column_display_sequence=>83
+,p_column_display_sequence=>183
 ,p_column_heading=>'Customer Reference'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14315,7 +14326,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9462902219006160)
 ,p_query_column_id=>20
 ,p_column_alias=>'MANDATE_REFERENCE'
-,p_column_display_sequence=>93
+,p_column_display_sequence=>193
 ,p_column_heading=>'Mandate Reference'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14368,11 +14379,19 @@ wwv_flow_api.create_report_columns(
 ,p_query_column_id=>26
 ,p_column_alias=>'NUMBER_OF_CHEQUES'
 ,p_column_display_sequence=>153
-,p_column_heading=>'Number Of Cheques'
+,p_column_heading=>'Anz. der Checks'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
 ,p_derived_column=>'N'
 ,p_include_in_export=>'Y'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(9585405686035814)
+,p_query_column_id=>27
+,p_column_alias=>'BETRAG'
+,p_column_display_sequence=>243
+,p_hidden_column=>'Y'
+,p_derived_column=>'N'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9457618467005916)
@@ -14409,15 +14428,27 @@ wwv_flow_api.create_page_plug(
 ,p_attribute_03=>'Y'
 );
 wwv_flow_api.create_page_button(
+ p_id=>wwv_flow_api.id(9585921007035819)
+,p_button_sequence=>20
+,p_button_plug_id=>wwv_flow_api.id(9458388204005924)
+,p_button_name=>'reload'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_api.id(9343788444985649)
+,p_button_image_alt=>'Vom Server neu laden'
+,p_button_position=>'BODY'
+,p_grid_new_row=>'Y'
+);
+wwv_flow_api.create_page_button(
  p_id=>wwv_flow_api.id(9458827840005928)
 ,p_button_sequence=>10
-,p_button_plug_id=>wwv_flow_api.id(9458388204005924)
+,p_button_plug_id=>wwv_flow_api.id(9457618467005916)
 ,p_button_name=>'RESET'
 ,p_button_action=>'REDIRECT_PAGE'
 ,p_button_template_options=>'#DEFAULT#:t-Button--noUI:t-Button--iconLeft'
 ,p_button_template_id=>wwv_flow_api.id(9343895377985649)
-,p_button_image_alt=>'Reset'
-,p_button_position=>'REGION_TEMPLATE_NEXT'
+,p_button_image_alt=>unistr('Komfortfilters zur\00FCcksetzen')
+,p_button_position=>'TOP'
 ,p_button_redirect_url=>'f?p=&APP_ID.:11:&SESSION.::&DEBUG.:RR,11::'
 ,p_icon_css_classes=>'fa-undo'
 );
@@ -14446,36 +14477,10 @@ wwv_flow_api.create_page_item(
 ,p_fc_toggleable=>false
 );
 wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(9403056603051416)
-,p_name=>'P11_DEBIT'
-,p_source_data_type=>'NUMBER'
-,p_item_sequence=>30
-,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
-,p_prompt=>'Soll'
-,p_source=>'DEBIT'
-,p_source_type=>'FACET_COLUMN'
-,p_display_as=>'NATIVE_RANGE'
-,p_lov=>'STATIC:<2k;|-2000,2000 .. 200;-2000|-200,200 .. 10;-200|-10,Bagatell;-10|0'
-,p_item_template_options=>'#DEFAULT#'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_fc_collapsible=>true
-,p_fc_initial_collapsed=>false
-,p_fc_compute_counts=>true
-,p_fc_show_counts=>true
-,p_fc_zero_count_entries=>'L'
-,p_fc_show_more_count=>5
-,p_fc_filter_values=>false
-,p_fc_show_selected_first=>false
-,p_fc_show_chart=>true
-,p_fc_initial_chart=>false
-,p_fc_toggleable=>false
-);
-wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(9403166959051417)
 ,p_name=>'P11_YEAR_BOOKING'
 ,p_source_data_type=>'NUMBER'
-,p_item_sequence=>40
+,p_item_sequence=>50
 ,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
 ,p_prompt=>'Jahr'
 ,p_source=>'YEAR_BOOKING'
@@ -14499,7 +14504,7 @@ wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(9403207320051418)
 ,p_name=>'P11_MONTH_BOOKING'
 ,p_source_data_type=>'VARCHAR2'
-,p_item_sequence=>50
+,p_item_sequence=>60
 ,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
 ,p_prompt=>'Month Booking'
 ,p_source=>'MONTH_BOOKING'
@@ -14523,7 +14528,7 @@ wwv_flow_api.create_page_item(
  p_id=>wwv_flow_api.id(9403310768051419)
 ,p_name=>'P11_ACCOUNT_NO'
 ,p_source_data_type=>'VARCHAR2'
-,p_item_sequence=>60
+,p_item_sequence=>70
 ,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
 ,p_prompt=>'KontoNr'
 ,p_source=>'ACCOUNT_NO'
@@ -14557,6 +14562,79 @@ wwv_flow_api.create_page_item(
 ,p_fc_collapsible=>true
 ,p_fc_initial_collapsed=>false
 ,p_fc_show_chart=>false
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(9585711747035817)
+,p_name=>'P11_BETRAG'
+,p_source_data_type=>'NUMBER'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
+,p_prompt=>'Soll'
+,p_source=>'BETRAG'
+,p_source_type=>'FACET_COLUMN'
+,p_display_as=>'NATIVE_RANGE'
+,p_lov=>'STATIC:S > 2k;|-2000,S bis  200;-1999.9|-200,S bis  10;-199.9|-10,S Bagatell;-9.99|0,H Bagatell;0.01|9.99,H  < 200;10|199.9,H < 2000;200|1999.99,H > 2000;2000|'
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_fc_collapsible=>true
+,p_fc_initial_collapsed=>false
+,p_fc_compute_counts=>true
+,p_fc_show_counts=>true
+,p_fc_zero_count_entries=>'L'
+,p_fc_show_more_count=>5
+,p_fc_filter_values=>false
+,p_fc_show_selected_first=>false
+,p_fc_show_chart=>true
+,p_fc_initial_chart=>false
+,p_fc_toggleable=>false
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(9585819107035818)
+,p_name=>'P11_START_YEAR'
+,p_item_sequence=>5
+,p_item_plug_id=>wwv_flow_api.id(9458388204005924)
+,p_prompt=>unistr('\00C4ltestes Jahr (vom Server)')
+,p_display_as=>'NATIVE_POPUP_LOV'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'WITH fac AS (',
+'  SELECT to_number( to_char( sysdate, ''yyyy'' ) ) - 19 start_yr FROM dual',
+')',
+'SELECT start_yr + rownum - 1',
+'FROM fac',
+'CONNECT BY level <= 20',
+''))
+,p_lov_display_null=>'YES'
+,p_cSize=>30
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_api.id(9341207004985643)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'POPUP'
+,p_attribute_02=>'FIRST_ROWSET'
+,p_attribute_03=>'N'
+,p_attribute_04=>'N'
+,p_attribute_05=>'N'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(9586019137035820)
+,p_name=>'P11_YEARS_FROM_START'
+,p_item_sequence=>15
+,p_item_plug_id=>wwv_flow_api.id(9458388204005924)
+,p_prompt=>'wie viele Jahre danach'
+,p_display_as=>'NATIVE_POPUP_LOV'
+,p_lov=>'SELECT level FROM dual CONNECT BY level <= 20'
+,p_lov_display_null=>'YES'
+,p_cSize=>30
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_api.id(9341207004985643)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'YES'
+,p_attribute_01=>'POPUP'
+,p_attribute_02=>'FIRST_ROWSET'
+,p_attribute_03=>'N'
+,p_attribute_04=>'N'
+,p_attribute_05=>'N'
 );
 end;
 /
