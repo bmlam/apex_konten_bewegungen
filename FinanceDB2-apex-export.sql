@@ -28,7 +28,7 @@ prompt APPLICATION 103 - FinanceDB2
 -- Application Export:
 --   Application:     103
 --   Name:            FinanceDB2
---   Date and Time:   15:13 Wednesday December 29, 2021
+--   Date and Time:   15:19 Sunday January 2, 2022
 --   Exported By:     LAM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -36,7 +36,7 @@ prompt APPLICATION 103 - FinanceDB2
 --       Items:                   36
 --       Computations:             1
 --       Validations:              1
---       Processes:               21
+--       Processes:               20
 --       Regions:                 31
 --       Buttons:                 24
 --       Dynamic Actions:          1
@@ -119,7 +119,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'FinanceDB2'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211229151019'
+,p_last_upd_yyyymmddhh24miss=>'20211230154004'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null
@@ -175,14 +175,6 @@ wwv_flow_api.create_list_item(
 ,p_list_item_current_for_pages=>'4'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9493280874507106)
-,p_list_item_display_sequence=>60
-,p_list_item_link_text=>unistr('\00DCbersicht Bank-Alias und Konten')
-,p_list_item_link_target=>'f?p=&APP_ID.:21:&APP_SESSION.::&DEBUG.:::'
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'21,22'
-);
-wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(9546238570410694)
 ,p_list_item_display_sequence=>90
 ,p_list_item_link_text=>unistr('L\00F6schen geladener Transaktionen')
@@ -197,6 +189,14 @@ wwv_flow_api.create_list_item(
 ,p_list_item_link_target=>'f?p=&APP_ID.:6:&APP_SESSION.::&DEBUG.:::'
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
 ,p_list_item_current_for_pages=>'6'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9655612687309585)
+,p_list_item_display_sequence=>120
+,p_list_item_link_text=>'BANKKONTEN anzeigen'
+,p_list_item_link_target=>'f?p=&APP_ID.:23:&APP_SESSION.::&DEBUG.:::'
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'23,24'
 );
 end;
 /
@@ -14638,23 +14638,23 @@ wwv_flow_api.create_page_item(
 );
 end;
 /
-prompt --application/pages/page_00021
+prompt --application/pages/page_00023
 begin
 wwv_flow_api.create_page(
- p_id=>21
+ p_id=>23
 ,p_user_interface_id=>wwv_flow_api.id(9368264857985689)
-,p_name=>unistr('\00DCbersicht Bank-Alias und Konten')
-,p_alias=>unistr('\00DCBERSICHT-BANK-ALIAS-UND-KONTEN')
-,p_step_title=>unistr('\00DCbersicht Bank-Alias und Konten')
+,p_name=>'BANKKONTEN anzeigen'
+,p_alias=>'BANKKONTEN-ANZEIGEN'
+,p_step_title=>'BANKKONTEN anzeigen'
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211217200449'
+,p_last_upd_yyyymmddhh24miss=>'20211230152733'
 );
 wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(9491526458507088)
-,p_plug_name=>'Report 1'
+ p_id=>wwv_flow_api.id(9653529181309576)
+,p_plug_name=>'Alle Konten'
 ,p_region_template_options=>'#DEFAULT#'
 ,p_plug_template=>wwv_flow_api.id(9276763130985587)
 ,p_plug_display_sequence=>10
@@ -14663,10 +14663,40 @@ wwv_flow_api.create_page_plug(
 ,p_query_table=>'BANK_ACCOUNT'
 ,p_include_rowid_column=>false
 ,p_plug_source_type=>'NATIVE_IR'
-,p_prn_page_header=>'Report 1'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_prn_content_disposition=>'ATTACHMENT'
+,p_prn_document_header=>'APEX'
+,p_prn_units=>'INCHES'
+,p_prn_paper_size=>'LETTER'
+,p_prn_width=>11
+,p_prn_height=>8.5
+,p_prn_orientation=>'HORIZONTAL'
+,p_prn_page_header=>'Alle Konten'
+,p_prn_page_header_font_color=>'#000000'
+,p_prn_page_header_font_family=>'Helvetica'
+,p_prn_page_header_font_weight=>'normal'
+,p_prn_page_header_font_size=>'12'
+,p_prn_page_footer_font_color=>'#000000'
+,p_prn_page_footer_font_family=>'Helvetica'
+,p_prn_page_footer_font_weight=>'normal'
+,p_prn_page_footer_font_size=>'12'
+,p_prn_header_bg_color=>'#EEEEEE'
+,p_prn_header_font_color=>'#000000'
+,p_prn_header_font_family=>'Helvetica'
+,p_prn_header_font_weight=>'bold'
+,p_prn_header_font_size=>'10'
+,p_prn_body_bg_color=>'#FFFFFF'
+,p_prn_body_font_color=>'#000000'
+,p_prn_body_font_family=>'Helvetica'
+,p_prn_body_font_weight=>'normal'
+,p_prn_body_font_size=>'10'
+,p_prn_border_width=>.5
+,p_prn_page_header_alignment=>'CENTER'
+,p_prn_page_footer_alignment=>'CENTER'
+,p_prn_border_color=>'#666666'
 );
 wwv_flow_api.create_worksheet(
- p_id=>wwv_flow_api.id(9491999068507089)
+ p_id=>wwv_flow_api.id(9653926913309577)
 ,p_name=>'Report 1'
 ,p_max_row_count_message=>'The maximum row count for this report is #MAX_ROW_COUNT# rows.  Please apply a filter to reduce the number of records in your query.'
 ,p_no_data_found_message=>'No data found.'
@@ -14676,13 +14706,13 @@ wwv_flow_api.create_worksheet(
 ,p_lazy_loading=>false
 ,p_show_detail_link=>'C'
 ,p_download_formats=>'CSV:HTML:EMAIL:XLSX:PDF:RTF'
-,p_detail_link=>'f?p=&APP_ID.:22:&SESSION.::&DEBUG.:RP:P22_ACCOUNT_CODE:\#ACCOUNT_CODE#\'
+,p_detail_link=>'f?p=&APP_ID.:24:&SESSION.::&DEBUG.:RP:P24_ID:\#ID#\'
 ,p_detail_link_text=>'<span aria-label="Edit"><span class="fa fa-edit" aria-hidden="true" title="Edit"></span></span>'
 ,p_owner=>'LAM'
-,p_internal_uid=>9491999068507089
+,p_internal_uid=>9653926913309577
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(9492045756507093)
+ p_id=>wwv_flow_api.id(9654040886309582)
 ,p_db_column_name=>'BANK_ALIAS'
 ,p_display_order=>1
 ,p_column_identifier=>'A'
@@ -14692,7 +14722,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(9492429391507105)
+ p_id=>wwv_flow_api.id(9654439884309584)
 ,p_db_column_name=>'ACCOUNT_CODE'
 ,p_display_order=>2
 ,p_column_identifier=>'B'
@@ -14702,7 +14732,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_tz_dependent=>'N'
 );
 wwv_flow_api.create_worksheet_column(
- p_id=>wwv_flow_api.id(9492820242507105)
+ p_id=>wwv_flow_api.id(9654842167309584)
 ,p_db_column_name=>'COMMENTS'
 ,p_display_order=>3
 ,p_column_identifier=>'C'
@@ -14711,62 +14741,57 @@ wwv_flow_api.create_worksheet_column(
 ,p_heading_alignment=>'LEFT'
 ,p_tz_dependent=>'N'
 );
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9655277872309584)
+,p_db_column_name=>'ID'
+,p_display_order=>4
+,p_column_identifier=>'D'
+,p_column_label=>'Id'
+,p_column_type=>'NUMBER'
+,p_display_text_as=>'HIDDEN'
+,p_tz_dependent=>'N'
+);
 wwv_flow_api.create_worksheet_rpt(
- p_id=>wwv_flow_api.id(9494417856510734)
+ p_id=>wwv_flow_api.id(9657467118322203)
 ,p_application_user=>'APXWS_DEFAULT'
 ,p_report_seq=>10
-,p_report_alias=>'94945'
+,p_report_alias=>'96575'
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
-,p_report_columns=>'BANK_ALIAS:ACCOUNT_CODE:COMMENTS'
+,p_report_columns=>'BANK_ALIAS:ACCOUNT_CODE:COMMENTS:ID'
 );
 wwv_flow_api.create_page_button(
- p_id=>wwv_flow_api.id(9494015908507107)
+ p_id=>wwv_flow_api.id(9656436152309590)
 ,p_button_sequence=>30
-,p_button_plug_id=>wwv_flow_api.id(9491526458507088)
+,p_button_plug_id=>wwv_flow_api.id(9653529181309576)
 ,p_button_name=>'CREATE'
 ,p_button_action=>'REDIRECT_PAGE'
 ,p_button_template_options=>'#DEFAULT#'
 ,p_button_template_id=>wwv_flow_api.id(9343788444985649)
-,p_button_is_hot=>'Y'
-,p_button_image_alt=>'Create'
+,p_button_image_alt=>'Neues Konto eintragen'
 ,p_button_position=>'RIGHT_OF_IR_SEARCH_BAR'
-,p_button_redirect_url=>'f?p=&APP_ID.:22:&SESSION.::&DEBUG.:22'
-);
-wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(9403614732051422)
-,p_process_sequence=>5
-,p_process_point=>'ON_SUBMIT_BEFORE_COMPUTATION'
-,p_process_type=>'NATIVE_PLSQL'
-,p_process_name=>'set_form_create_flag'
-,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'begin ',
-':p22_is_creating := CASE WHEN :REQUEST IN ( ''CREATE'', ''ANLEGEN'' ) THEN 1 ELSE 0 END; ',
-'',
-'end;'))
-,p_process_clob_language=>'PLSQL'
-,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_button_redirect_url=>'f?p=&APP_ID.:24:&SESSION.::&DEBUG.:24'
 );
 end;
 /
-prompt --application/pages/page_00022
+prompt --application/pages/page_00024
 begin
 wwv_flow_api.create_page(
- p_id=>22
+ p_id=>24
 ,p_user_interface_id=>wwv_flow_api.id(9368264857985689)
-,p_name=>'Bank-Alias und Konten bearbeiten'
-,p_alias=>'BANK-ALIAS-UND-KONTEN-BEARBEITEN'
-,p_step_title=>'Bank-Alias und Konten bearbeiten'
+,p_name=>'BANKKONTO bearbeiten'
+,p_alias=>'BANKKONTO-BEARBEITEN'
+,p_step_title=>'BANKKONTO bearbeiten '
 ,p_autocomplete_on_off=>'OFF'
 ,p_javascript_code=>'var htmldb_delete_message=''"DELETE_CONFIRM_MSG"'';'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211217195224'
+,p_last_upd_yyyymmddhh24miss=>'20211230153805'
 );
 wwv_flow_api.create_page_plug(
- p_id=>wwv_flow_api.id(9485782585507071)
-,p_plug_name=>'Bank-Alias / Konto anlegen/ bearbeiten'
+ p_id=>wwv_flow_api.id(9647051003309551)
+,p_plug_name=>'BANKKONTO bearbeiten'
 ,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
 ,p_plug_template=>wwv_flow_api.id(9278671401985588)
 ,p_plug_display_sequence=>10
@@ -14778,12 +14803,11 @@ wwv_flow_api.create_page_plug(
 ,p_edit_operations=>'i:u:d'
 ,p_lost_update_check_type=>'VALUES'
 ,p_plug_source_type=>'NATIVE_FORM'
-,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 );
 wwv_flow_api.create_page_button(
- p_id=>wwv_flow_api.id(9489365194507084)
+ p_id=>wwv_flow_api.id(9651326689309569)
 ,p_button_sequence=>30
-,p_button_plug_id=>wwv_flow_api.id(9485782585507071)
+,p_button_plug_id=>wwv_flow_api.id(9647051003309551)
 ,p_button_name=>'SAVE'
 ,p_button_action=>'SUBMIT'
 ,p_button_template_options=>'#DEFAULT#'
@@ -14791,26 +14815,26 @@ wwv_flow_api.create_page_button(
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Apply Changes'
 ,p_button_position=>'REGION_TEMPLATE_CHANGE'
-,p_button_condition=>'P22_ACCOUNT_CODE'
+,p_button_condition=>'P24_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_database_action=>'UPDATE'
 );
 wwv_flow_api.create_page_button(
- p_id=>wwv_flow_api.id(9488123679507081)
+ p_id=>wwv_flow_api.id(9650118740309566)
 ,p_button_sequence=>10
-,p_button_plug_id=>wwv_flow_api.id(9485782585507071)
+,p_button_plug_id=>wwv_flow_api.id(9647051003309551)
 ,p_button_name=>'CANCEL'
 ,p_button_action=>'REDIRECT_PAGE'
 ,p_button_template_options=>'#DEFAULT#'
 ,p_button_template_id=>wwv_flow_api.id(9343788444985649)
 ,p_button_image_alt=>'Cancel'
 ,p_button_position=>'REGION_TEMPLATE_CLOSE'
-,p_button_redirect_url=>'f?p=&APP_ID.:21:&SESSION.::&DEBUG.:::'
+,p_button_redirect_url=>'f?p=&APP_ID.:23:&SESSION.::&DEBUG.:::'
 );
 wwv_flow_api.create_page_button(
- p_id=>wwv_flow_api.id(9489798610507084)
+ p_id=>wwv_flow_api.id(9651768882309569)
 ,p_button_sequence=>40
-,p_button_plug_id=>wwv_flow_api.id(9485782585507071)
+,p_button_plug_id=>wwv_flow_api.id(9647051003309551)
 ,p_button_name=>'CREATE'
 ,p_button_action=>'SUBMIT'
 ,p_button_template_options=>'#DEFAULT#'
@@ -14818,14 +14842,14 @@ wwv_flow_api.create_page_button(
 ,p_button_is_hot=>'Y'
 ,p_button_image_alt=>'Create'
 ,p_button_position=>'REGION_TEMPLATE_CREATE'
-,p_button_condition=>'P22_ACCOUNT_CODE'
+,p_button_condition=>'P24_ID'
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_database_action=>'INSERT'
 );
 wwv_flow_api.create_page_button(
- p_id=>wwv_flow_api.id(9488968853507084)
+ p_id=>wwv_flow_api.id(9650982477309569)
 ,p_button_sequence=>20
-,p_button_plug_id=>wwv_flow_api.id(9485782585507071)
+,p_button_plug_id=>wwv_flow_api.id(9647051003309551)
 ,p_button_name=>'DELETE'
 ,p_button_action=>'REDIRECT_URL'
 ,p_button_template_options=>'#DEFAULT#'
@@ -14834,62 +14858,52 @@ wwv_flow_api.create_page_button(
 ,p_button_position=>'REGION_TEMPLATE_DELETE'
 ,p_button_redirect_url=>'javascript:apex.confirm(htmldb_delete_message,''DELETE'');'
 ,p_button_execute_validations=>'N'
-,p_button_condition=>'P22_ACCOUNT_CODE'
+,p_button_condition=>'P24_ID'
 ,p_button_condition_type=>'ITEM_IS_NOT_NULL'
 ,p_database_action=>'DELETE'
 );
 wwv_flow_api.create_page_branch(
- p_id=>wwv_flow_api.id(9490019931507084)
-,p_branch_action=>'f?p=&APP_ID.:21:&SESSION.::&DEBUG.&success_msg=#SUCCESS_MSG#'
+ p_id=>wwv_flow_api.id(9652024072309569)
+,p_branch_action=>'f?p=&APP_ID.:23:&SESSION.::&DEBUG.&success_msg=#SUCCESS_MSG#'
 ,p_branch_point=>'AFTER_PROCESSING'
 ,p_branch_type=>'REDIRECT_URL'
 ,p_branch_sequence=>1
 );
 wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(9403491760051420)
-,p_name=>'P22_IS_CREATING'
-,p_item_sequence=>40
-,p_item_plug_id=>wwv_flow_api.id(9485782585507071)
-,p_display_as=>'NATIVE_HIDDEN'
-,p_attribute_01=>'Y'
-);
-wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(9486012261507072)
-,p_name=>'P22_ACCOUNT_CODE'
-,p_source_data_type=>'VARCHAR2'
+ p_id=>wwv_flow_api.id(9647362844309553)
+,p_name=>'P24_ID'
+,p_source_data_type=>'NUMBER'
 ,p_is_primary_key=>true
-,p_item_sequence=>15
-,p_item_plug_id=>wwv_flow_api.id(9485782585507071)
-,p_item_source_plug_id=>wwv_flow_api.id(9485782585507071)
-,p_prompt=>'Konto Nr / IBAN'
-,p_source=>'ACCOUNT_CODE'
+,p_is_query_only=>true
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_api.id(9647051003309551)
+,p_item_source_plug_id=>wwv_flow_api.id(9647051003309551)
+,p_use_cache_before_default=>'NO'
+,p_prompt=>'Id'
+,p_source=>'ID'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
-,p_display_as=>'NATIVE_TEXT_FIELD'
-,p_cSize=>30
-,p_begin_on_new_line=>'N'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_label_alignment=>'RIGHT'
 ,p_field_template=>wwv_flow_api.id(9341207004985643)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_protection_level=>'S'
-,p_attribute_01=>'N'
-,p_attribute_02=>'N'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'BOTH'
+,p_attribute_01=>'Y'
 );
 wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(9486489030507079)
-,p_name=>'P22_BANK_ALIAS'
+ p_id=>wwv_flow_api.id(9647740027309561)
+,p_name=>'P24_BANK_ALIAS'
 ,p_source_data_type=>'VARCHAR2'
 ,p_is_required=>true
-,p_item_sequence=>10
-,p_item_plug_id=>wwv_flow_api.id(9485782585507071)
-,p_item_source_plug_id=>wwv_flow_api.id(9485782585507071)
-,p_prompt=>'Bank Alias'
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_api.id(9647051003309551)
+,p_item_source_plug_id=>wwv_flow_api.id(9647051003309551)
+,p_prompt=>unistr('Bank-Identifizierer (Buchstaben m\00FCssen GROSS sein)')
 ,p_source=>'BANK_ALIAS'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
 ,p_display_as=>'NATIVE_POPUP_LOV'
-,p_named_lov=>'PICK_BANK_ALIAS'
-,p_lov=>'SELECT DISTINCT bank_code , ''Bank Alias ''||bank_code AS    lov_description FROM v_bank_account_lovs'
+,p_named_lov=>'PICK_BANK_ACCOUNT'
+,p_lov=>'SELECT account_id , lov_description FROM v_bank_account_lovs'
 ,p_lov_display_null=>'YES'
 ,p_cSize=>32
 ,p_cMaxlength=>20
@@ -14904,12 +14918,34 @@ wwv_flow_api.create_page_item(
 ,p_attribute_05=>'N'
 );
 wwv_flow_api.create_page_item(
- p_id=>wwv_flow_api.id(9486865896507079)
-,p_name=>'P22_COMMENTS'
+ p_id=>wwv_flow_api.id(9648157715309563)
+,p_name=>'P24_ACCOUNT_CODE'
 ,p_source_data_type=>'VARCHAR2'
+,p_is_required=>true
 ,p_item_sequence=>30
-,p_item_plug_id=>wwv_flow_api.id(9485782585507071)
-,p_item_source_plug_id=>wwv_flow_api.id(9485782585507071)
+,p_item_plug_id=>wwv_flow_api.id(9647051003309551)
+,p_item_source_plug_id=>wwv_flow_api.id(9647051003309551)
+,p_prompt=>unistr('Konto-Identifizieren (Buchstaben m\00FCssen GROSS sein)')
+,p_source=>'ACCOUNT_CODE'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>32
+,p_cMaxlength=>30
+,p_field_template=>wwv_flow_api.id(9342512126985645)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'NONE'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(9648510281309564)
+,p_name=>'P24_COMMENTS'
+,p_source_data_type=>'VARCHAR2'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_api.id(9647051003309551)
+,p_item_source_plug_id=>wwv_flow_api.id(9647051003309551)
 ,p_use_cache_before_default=>'NO'
 ,p_prompt=>'Comments'
 ,p_source=>'COMMENTS'
@@ -14928,12 +14964,12 @@ wwv_flow_api.create_page_item(
 ,p_attribute_04=>'BOTH'
 );
 wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(9490955802507086)
+ p_id=>wwv_flow_api.id(9652985908309575)
 ,p_process_sequence=>10
 ,p_process_point=>'AFTER_SUBMIT'
-,p_region_id=>wwv_flow_api.id(9485782585507071)
+,p_region_id=>wwv_flow_api.id(9647051003309551)
 ,p_process_type=>'NATIVE_FORM_DML'
-,p_process_name=>'Process form Bank-Alias und Konten bearbeiten'
+,p_process_name=>'Process form BANKKONTO bearbeiten'
 ,p_attribute_01=>'REGION_SOURCE'
 ,p_attribute_05=>'Y'
 ,p_attribute_06=>'Y'
@@ -14941,12 +14977,12 @@ wwv_flow_api.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 );
 wwv_flow_api.create_page_process(
- p_id=>wwv_flow_api.id(9490514817507086)
+ p_id=>wwv_flow_api.id(9652565319309574)
 ,p_process_sequence=>10
 ,p_process_point=>'BEFORE_HEADER'
-,p_region_id=>wwv_flow_api.id(9485782585507071)
+,p_region_id=>wwv_flow_api.id(9647051003309551)
 ,p_process_type=>'NATIVE_FORM_INIT'
-,p_process_name=>'Initialize form Bank-Alias und Konten bearbeiten'
+,p_process_name=>'Initialize form BANKKONTO bearbeiten'
 );
 end;
 /

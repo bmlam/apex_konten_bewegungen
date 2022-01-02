@@ -7,3 +7,8 @@ CREATE TABLE  "BANK_ACCOUNT"
   USING INDEX  ENABLE
    )
 /
+
+ALTER TABLE BANK_ACCOUNT ADD ( id NUMBER  generated always as identity  )
+;
+ALTER TABLE BANK_ACCOUNT ADD primary key (id)
+;
