@@ -56,6 +56,7 @@ AS
 
     DELETE bank_transaction
     WHERE p_account_no = account_no 
+      AND booking_date BETWEEN p_period_begin AND p_period_end
     ;
     l_sql_rowcount := SQL%ROWCOUNT;
 
