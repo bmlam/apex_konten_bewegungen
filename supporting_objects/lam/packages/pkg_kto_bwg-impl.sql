@@ -263,7 +263,7 @@ BEGIN
        ,pi_period_end   => l_max_xact_dt_src
        ,po_conflict_count => l_in_same_period_count 
     ); 
-    l_xact_dt_range_conflicts := l_in_same_period_count = 0 
+    l_xact_dt_range_conflicts := l_in_same_period_count > 0 
         ;
 
     pck_std_log.info( a_comp=> $$plsql_unit, a_subcomp=>'Line'||$$plsql_line

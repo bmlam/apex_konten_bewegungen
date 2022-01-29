@@ -28,16 +28,16 @@ prompt APPLICATION 103 - FinanceDB2
 -- Application Export:
 --   Application:     103
 --   Name:            FinanceDB2
---   Date and Time:   15:45 Friday January 21, 2022
+--   Date and Time:   15:43 Saturday January 29, 2022
 --   Exported By:     LAM
 --   Flashback:       0
 --   Export Type:     Application Export
---     Pages:                     13
+--     Pages:                     14
 --       Items:                   41
 --       Computations:             2
 --       Validations:              2
 --       Processes:               23
---       Regions:                 36
+--       Regions:                 37
 --       Buttons:                 26
 --       Dynamic Actions:          2
 --     Shared Components:
@@ -119,7 +119,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'FinanceDB2'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220121154400'
+,p_last_upd_yyyymmddhh24miss=>'20220129154139'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null
@@ -133,6 +133,57 @@ wwv_flow_api.create_list(
  p_id=>wwv_flow_api.id(9221569951985530)
 ,p_name=>'Desktop Navigation Menu'
 ,p_list_status=>'PUBLIC'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_display_sequence=>5
+,p_list_item_link_text=>unistr('Daten Hochladen / Gezielt L\00F6schen')
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9387647049022269)
+,p_list_item_display_sequence=>30
+,p_list_item_link_text=>'Laden DeutscheBank Deutsche CSV'
+,p_list_item_link_target=>'f?p=&APP_ID.:2:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'2'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9420295929698225)
+,p_list_item_display_sequence=>35
+,p_list_item_link_text=>'Laden DeutscheBank Englische CSV'
+,p_list_item_link_target=>'f?p=&APP_ID.:3:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'3'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9441172661889848)
+,p_list_item_display_sequence=>40
+,p_list_item_link_text=>'Laden HypoVerein Deutsche CSV'
+,p_list_item_link_target=>'f?p=&APP_ID.:4:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'4'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9546238570410694)
+,p_list_item_display_sequence=>90
+,p_list_item_link_text=>unistr('L\00F6schen geladener Transaktionen')
+,p_list_item_link_target=>'f?p=&APP_ID.:7:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'7'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(10853957280982224)
+,p_list_item_display_sequence=>130
+,p_list_item_link_text=>'HVB CSV-Datei Deutsch hochladen'
+,p_list_item_link_target=>'f?p=&APP_ID.:9:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'9'
 );
 wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(9378150311985796)
@@ -151,38 +202,6 @@ wwv_flow_api.create_list_item(
 ,p_list_item_current_for_pages=>'11'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9387647049022269)
-,p_list_item_display_sequence=>30
-,p_list_item_link_text=>'Laden DeutscheBank Deutsche CSV'
-,p_list_item_link_target=>'f?p=&APP_ID.:2:&APP_SESSION.::&DEBUG.:::'
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'2'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9420295929698225)
-,p_list_item_display_sequence=>35
-,p_list_item_link_text=>'Laden DeutscheBank Englische CSV'
-,p_list_item_link_target=>'f?p=&APP_ID.:3:&APP_SESSION.::&DEBUG.:::'
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'3'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9441172661889848)
-,p_list_item_display_sequence=>40
-,p_list_item_link_text=>'Laden HypoVerein Deutsche CSV'
-,p_list_item_link_target=>'f?p=&APP_ID.:4:&APP_SESSION.::&DEBUG.:::'
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'4'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9546238570410694)
-,p_list_item_display_sequence=>90
-,p_list_item_link_text=>unistr('L\00F6schen geladener Transaktionen')
-,p_list_item_link_target=>'f?p=&APP_ID.:7:&APP_SESSION.::&DEBUG.:::'
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'7'
-);
-wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(9525406227355331)
 ,p_list_item_display_sequence=>110
 ,p_list_item_link_text=>'migr_2_deutsche_bank_legacy'
@@ -193,18 +212,18 @@ wwv_flow_api.create_list_item(
 wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(9655612687309585)
 ,p_list_item_display_sequence=>120
-,p_list_item_link_text=>'BANKKONTEN anzeigen'
-,p_list_item_link_target=>'f?p=&APP_ID.:23:&APP_SESSION.::&DEBUG.:::'
+,p_list_item_link_text=>'BANKKONTEN anzeigen / verwalten'
+,p_list_item_link_target=>'f?p=&APP_ID.:23:&SESSION.::&DEBUG.::::'
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
 ,p_list_item_current_for_pages=>'23,24'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(10853957280982224)
-,p_list_item_display_sequence=>130
-,p_list_item_link_text=>'Load File HVB CSV Deutsch'
-,p_list_item_link_target=>'f?p=&APP_ID.:9:&APP_SESSION.::&DEBUG.:::'
+ p_id=>wwv_flow_api.id(10883399736743002)
+,p_list_item_display_sequence=>140
+,p_list_item_link_text=>'Monat_und_jahres_uebersicht'
+,p_list_item_link_target=>'f?p=&APP_ID.:14:&APP_SESSION.::&DEBUG.:::'
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'9'
+,p_list_item_current_for_pages=>'14'
 );
 end;
 /
@@ -13339,9 +13358,11 @@ wwv_flow_api.create_page(
 ,p_step_title=>'migr_2_deutsche_bank_legacy'
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
+,p_overwrite_navigation_list=>'Y'
 ,p_protection_level=>'C'
+,p_page_comment=>'only for migration'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211221174056'
+,p_last_upd_yyyymmddhh24miss=>'20220129154139'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9525888231355332)
@@ -15064,6 +15085,148 @@ wwv_flow_api.create_page_item(
 ,p_attribute_03=>'N'
 ,p_attribute_04=>'N'
 ,p_attribute_05=>'N'
+);
+end;
+/
+prompt --application/pages/page_00014
+begin
+wwv_flow_api.create_page(
+ p_id=>14
+,p_user_interface_id=>wwv_flow_api.id(9368264857985689)
+,p_name=>'Monat_und_jahres_uebersicht'
+,p_alias=>'MONAT-UND-JAHRES-UEBERSICHT'
+,p_step_title=>'Monat_und_jahres_uebersicht'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_last_updated_by=>'LAM'
+,p_last_upd_yyyymmddhh24miss=>'20220121191433'
+);
+wwv_flow_api.create_page_plug(
+ p_id=>wwv_flow_api.id(10883705862743009)
+,p_plug_name=>'Report 1'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_api.id(9276763130985587)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'BODY'
+,p_query_type=>'SQL'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT *',
+'FROM v_bank_transaction_mon_sums'))
+,p_plug_source_type=>'NATIVE_IR'
+,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
+,p_prn_content_disposition=>'ATTACHMENT'
+,p_prn_document_header=>'APEX'
+,p_prn_units=>'INCHES'
+,p_prn_paper_size=>'LETTER'
+,p_prn_width=>11
+,p_prn_height=>8.5
+,p_prn_orientation=>'HORIZONTAL'
+,p_prn_page_header=>'Report 1'
+,p_prn_page_header_font_color=>'#000000'
+,p_prn_page_header_font_family=>'Helvetica'
+,p_prn_page_header_font_weight=>'normal'
+,p_prn_page_header_font_size=>'12'
+,p_prn_page_footer_font_color=>'#000000'
+,p_prn_page_footer_font_family=>'Helvetica'
+,p_prn_page_footer_font_weight=>'normal'
+,p_prn_page_footer_font_size=>'12'
+,p_prn_header_bg_color=>'#EEEEEE'
+,p_prn_header_font_color=>'#000000'
+,p_prn_header_font_family=>'Helvetica'
+,p_prn_header_font_weight=>'bold'
+,p_prn_header_font_size=>'10'
+,p_prn_body_bg_color=>'#FFFFFF'
+,p_prn_body_font_color=>'#000000'
+,p_prn_body_font_family=>'Helvetica'
+,p_prn_body_font_weight=>'normal'
+,p_prn_body_font_size=>'10'
+,p_prn_border_width=>.5
+,p_prn_page_header_alignment=>'CENTER'
+,p_prn_page_footer_alignment=>'CENTER'
+,p_prn_border_color=>'#666666'
+);
+wwv_flow_api.create_worksheet(
+ p_id=>wwv_flow_api.id(9586755048035827)
+,p_max_row_count=>'1000000'
+,p_pagination_type=>'ROWS_X_TO_Y'
+,p_pagination_display_pos=>'BOTTOM_RIGHT'
+,p_report_list_mode=>'TABS'
+,p_lazy_loading=>false
+,p_show_detail_link=>'N'
+,p_show_notify=>'Y'
+,p_download_formats=>'CSV:HTML:XLSX:PDF:RTF:EMAIL'
+,p_owner=>'LAM'
+,p_internal_uid=>9586755048035827
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9586814347035828)
+,p_db_column_name=>'BANK_AND_ACC'
+,p_display_order=>10
+,p_column_identifier=>'A'
+,p_column_label=>'Bank And Acc'
+,p_column_type=>'STRING'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9586965836035829)
+,p_db_column_name=>'XACT_YEAR'
+,p_display_order=>20
+,p_column_identifier=>'B'
+,p_column_label=>'Xact Year'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'RIGHT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9587007424035830)
+,p_db_column_name=>'XACT_MONTH'
+,p_display_order=>30
+,p_column_identifier=>'C'
+,p_column_label=>'Xact Month'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'RIGHT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9587110505035831)
+,p_db_column_name=>'YYYYMM'
+,p_display_order=>40
+,p_column_identifier=>'D'
+,p_column_label=>'Yyyymm'
+,p_column_type=>'STRING'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9587212660035832)
+,p_db_column_name=>'FIRST_DAY'
+,p_display_order=>50
+,p_column_identifier=>'E'
+,p_column_label=>'First Day'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'RIGHT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9587320030035833)
+,p_db_column_name=>'LAST_DAY'
+,p_display_order=>60
+,p_column_identifier=>'F'
+,p_column_label=>'Last Day'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'RIGHT'
+);
+wwv_flow_api.create_worksheet_column(
+ p_id=>wwv_flow_api.id(9587474132035834)
+,p_db_column_name=>'ITEMS'
+,p_display_order=>70
+,p_column_identifier=>'G'
+,p_column_label=>'Items'
+,p_column_type=>'NUMBER'
+,p_column_alignment=>'RIGHT'
+);
+wwv_flow_api.create_worksheet_rpt(
+ p_id=>wwv_flow_api.id(10900718891764167)
+,p_application_user=>'APXWS_DEFAULT'
+,p_report_seq=>10
+,p_report_alias=>'109008'
+,p_status=>'PUBLIC'
+,p_is_default=>'Y'
+,p_report_columns=>'BANK_AND_ACC:XACT_YEAR:XACT_MONTH:YYYYMM:FIRST_DAY:LAST_DAY:ITEMS'
 );
 end;
 /
