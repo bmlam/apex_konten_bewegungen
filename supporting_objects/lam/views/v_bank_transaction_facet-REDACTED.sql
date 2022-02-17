@@ -1,5 +1,5 @@
---CREATE OR REPLACE VIEW v_bank_transaction_facet
---AS
+CREATE OR REPLACE VIEW v_bank_transaction_facet
+AS
 WITH FUNCTION masked_data 
        ( pi_data VARCHAR2
        )      
@@ -35,5 +35,6 @@ SELECT id,
        number_of_transactions,
        number_of_cheques,
        load_dt
+       , CASE WHEN debit IS NOT NULL THEN debit ELSE credit END amount 
   FROM bank_transaction 
 /

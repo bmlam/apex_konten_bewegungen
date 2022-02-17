@@ -28,7 +28,7 @@ prompt APPLICATION 103 - FinanceDB2
 -- Application Export:
 --   Application:     103
 --   Name:            FinanceDB2
---   Date and Time:   15:43 Saturday January 29, 2022
+--   Date and Time:   20:08 Thursday February 17, 2022
 --   Exported By:     LAM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -119,7 +119,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'FinanceDB2'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220129154139'
+,p_last_upd_yyyymmddhh24miss=>'20220217190132'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null
@@ -135,57 +135,6 @@ wwv_flow_api.create_list(
 ,p_list_status=>'PUBLIC'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(10922023853238164)
-,p_list_item_display_sequence=>5
-,p_list_item_link_text=>unistr('Daten Hochladen / Gezielt L\00F6schen')
-,p_list_item_current_type=>'TARGET_PAGE'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9387647049022269)
-,p_list_item_display_sequence=>30
-,p_list_item_link_text=>'Laden DeutscheBank Deutsche CSV'
-,p_list_item_link_target=>'f?p=&APP_ID.:2:&SESSION.::&DEBUG.::::'
-,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'2'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9420295929698225)
-,p_list_item_display_sequence=>35
-,p_list_item_link_text=>'Laden DeutscheBank Englische CSV'
-,p_list_item_link_target=>'f?p=&APP_ID.:3:&SESSION.::&DEBUG.::::'
-,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'3'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9441172661889848)
-,p_list_item_display_sequence=>40
-,p_list_item_link_text=>'Laden HypoVerein Deutsche CSV'
-,p_list_item_link_target=>'f?p=&APP_ID.:4:&SESSION.::&DEBUG.::::'
-,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'4'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9546238570410694)
-,p_list_item_display_sequence=>90
-,p_list_item_link_text=>unistr('L\00F6schen geladener Transaktionen')
-,p_list_item_link_target=>'f?p=&APP_ID.:7:&SESSION.::&DEBUG.::::'
-,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'7'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(10853957280982224)
-,p_list_item_display_sequence=>130
-,p_list_item_link_text=>'HVB CSV-Datei Deutsch hochladen'
-,p_list_item_link_target=>'f?p=&APP_ID.:9:&SESSION.::&DEBUG.::::'
-,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'9'
-);
-wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(9378150311985796)
 ,p_list_item_display_sequence=>10
 ,p_list_item_link_text=>'Home'
@@ -195,35 +144,78 @@ wwv_flow_api.create_list_item(
 );
 wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(9457168630005915)
-,p_list_item_display_sequence=>15
+,p_list_item_display_sequence=>110
 ,p_list_item_link_text=>'Komfortsuche - Transaktion aller Konten'
 ,p_list_item_link_target=>'f?p=&APP_ID.:11:&APP_SESSION.::&DEBUG.:::'
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
 ,p_list_item_current_for_pages=>'11'
 );
 wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9525406227355331)
-,p_list_item_display_sequence=>110
-,p_list_item_link_text=>'migr_2_deutsche_bank_legacy'
-,p_list_item_link_target=>'f?p=&APP_ID.:6:&APP_SESSION.::&DEBUG.:::'
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'6'
-);
-wwv_flow_api.create_list_item(
- p_id=>wwv_flow_api.id(9655612687309585)
-,p_list_item_display_sequence=>120
-,p_list_item_link_text=>'BANKKONTEN anzeigen / verwalten'
-,p_list_item_link_target=>'f?p=&APP_ID.:23:&SESSION.::&DEBUG.::::'
-,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
-,p_list_item_current_for_pages=>'23,24'
-);
-wwv_flow_api.create_list_item(
  p_id=>wwv_flow_api.id(10883399736743002)
-,p_list_item_display_sequence=>140
-,p_list_item_link_text=>'Monat_und_jahres_uebersicht'
+,p_list_item_display_sequence=>120
+,p_list_item_link_text=>'Monat- und Jahresuebersicht'
 ,p_list_item_link_target=>'f?p=&APP_ID.:14:&APP_SESSION.::&DEBUG.:::'
 ,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
 ,p_list_item_current_for_pages=>'14'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_display_sequence=>130
+,p_list_item_link_text=>unistr('Daten Hochladen / Gezielt L\00F6schen')
+,p_list_item_current_type=>'TARGET_PAGE'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9387647049022269)
+,p_list_item_display_sequence=>131
+,p_list_item_link_text=>'Laden DeutscheBank Deutsche CSV'
+,p_list_item_link_target=>'f?p=&APP_ID.:2:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'2'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9420295929698225)
+,p_list_item_display_sequence=>132
+,p_list_item_link_text=>'Laden DeutscheBank Englische CSV'
+,p_list_item_link_target=>'f?p=&APP_ID.:3:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'3'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9441172661889848)
+,p_list_item_display_sequence=>133
+,p_list_item_link_text=>'Laden HypoVerein Deutsche CSV'
+,p_list_item_link_target=>'f?p=&APP_ID.:4:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'4'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(10853957280982224)
+,p_list_item_display_sequence=>134
+,p_list_item_link_text=>'Laden HypoVerein Deutsch CSV Datei'
+,p_list_item_link_target=>'f?p=&APP_ID.:9:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'9'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9546238570410694)
+,p_list_item_display_sequence=>139
+,p_list_item_link_text=>unistr('L\00F6schen geladener Transaktionen')
+,p_list_item_link_target=>'f?p=&APP_ID.:7:&SESSION.::&DEBUG.::::'
+,p_parent_list_item_id=>wwv_flow_api.id(10922023853238164)
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'7'
+);
+wwv_flow_api.create_list_item(
+ p_id=>wwv_flow_api.id(9655612687309585)
+,p_list_item_display_sequence=>140
+,p_list_item_link_text=>'Bankkonten anzeigen / verwalten'
+,p_list_item_link_target=>'f?p=&APP_ID.:23:&SESSION.::&DEBUG.::::'
+,p_list_item_current_type=>'COLON_DELIMITED_PAGE_LIST'
+,p_list_item_current_for_pages=>'23,24'
 );
 end;
 /
@@ -12177,11 +12169,11 @@ wwv_flow_api.create_page(
 ,p_user_interface_id=>wwv_flow_api.id(9368264857985689)
 ,p_name=>'Home'
 ,p_alias=>'HOME'
-,p_step_title=>'FinanceDB2'
+,p_step_title=>'Kontenbewegungen'
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211227161738'
+,p_last_upd_yyyymmddhh24miss=>'20220217184957'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9379093024985803)
@@ -12191,6 +12183,17 @@ wwv_flow_api.create_page_plug(
 ,p_plug_template=>wwv_flow_api.id(9268896501985583)
 ,p_plug_display_sequence=>10
 ,p_plug_display_point=>'REGION_POSITION_01'
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'Hallo,',
+'',
+unistr('mit dieser Anwendung k\00F6nnen Sie '),
+'<ul>',
+'<li> Kontenbegungen suchen </li>',
+'<li> Kontenbewegungsdaten hochladen, pfegen </li>',
+'<li> Kontenstammdaten pflegen</li>',
+'</ul>',
+'',
+unistr('Die m\00F6glichen Funktionen h\00E4ngen jedoch von Ihren Berechtigungen ab')))
 ,p_plug_query_num_rows=>15
 ,p_plug_query_options=>'DERIVED_REPORT_COLUMNS'
 ,p_attribute_01=>'N'
@@ -13359,10 +13362,14 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_overwrite_navigation_list=>'Y'
+,p_navigation_list_position=>'SIDE'
+,p_navigation_list_id=>wwv_flow_api.id(9221569951985530)
+,p_navigation_list_template_id=>wwv_flow_api.id(9335537633985637)
+,p_nav_list_template_options=>'#DEFAULT#:js-navCollapsed--hidden:t-TreeNav--styleA'
 ,p_protection_level=>'C'
 ,p_page_comment=>'only for migration'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220129154139'
+,p_last_upd_yyyymmddhh24miss=>'20220217182824'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9525888231355332)
@@ -14513,7 +14520,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211229151019'
+,p_last_upd_yyyymmddhh24miss=>'20220212164611'
 );
 wwv_flow_api.create_report_region(
  p_id=>wwv_flow_api.id(9457515618005916)
@@ -14908,7 +14915,7 @@ wwv_flow_api.create_page_item(
 ,p_source_data_type=>'VARCHAR2'
 ,p_item_sequence=>20
 ,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
-,p_prompt=>'Transaction Type'
+,p_prompt=>'Transaktionstyp'
 ,p_source=>'TRANSACTION_TYPE'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_CHECKBOX'
@@ -14956,7 +14963,7 @@ wwv_flow_api.create_page_item(
 ,p_source_data_type=>'VARCHAR2'
 ,p_item_sequence=>60
 ,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
-,p_prompt=>'Month Booking'
+,p_prompt=>'Monat'
 ,p_source=>'MONTH_BOOKING'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_CHECKBOX'
@@ -15019,11 +15026,11 @@ wwv_flow_api.create_page_item(
 ,p_source_data_type=>'NUMBER'
 ,p_item_sequence=>40
 ,p_item_plug_id=>wwv_flow_api.id(9457618467005916)
-,p_prompt=>'Soll'
+,p_prompt=>'Betrag '
 ,p_source=>'BETRAG'
 ,p_source_type=>'FACET_COLUMN'
 ,p_display_as=>'NATIVE_RANGE'
-,p_lov=>'STATIC:S > 2k;|-2000,S bis  200;-1999.9|-200,S bis  10;-199.9|-10,S Bagatell;-9.99|0,H Bagatell;0.01|9.99,H  < 200;10|199.9,H < 2000;200|1999.99,H > 2000;2000|'
+,p_lov=>'STATIC:Soll  >  2k;|-2000,Soll bis  200;-1999.9|-200,Soll bis  10;-199.9|-10,Soll Kleinbetrag;-9.99|0,Haben Kleinbetrag;0.01|9.99,Haben  bis  200;10|199.9,Haben bis 2000;200|1999.99,Haben > 2000;2000|'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'N'

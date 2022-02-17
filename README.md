@@ -2,12 +2,12 @@
 Für Leute oder Organisationen, die mehrere Bankkonten haben und trotzdem alle Bewegungen dieser verschiedenen Konten "unter einem Dach" im Blick behalten wollen
 
 # Warum
-Ich habe mehrere Bankkonten bei mindesten zwei verschiedenen Banken. Alle dieser Banken bieten den Kunden die Auszüge als CSV-Downloads an. Im Laufe der Zeit können sich hunderte von CSV-Files ansammeln, die zudem verschiedenen Aufbau haben. Die Deutsche Bank bietet zum Beispiel CSV in deutscher und englischer Sprache an, mit vielen sehr detaillierten Felder, z.B. "Anzahl der Schecks" oder "Fremde Gebühren". Die HypoVereinsbank/UnitCredit hat dagegen weniger Felder, aber die Felder heissen natürlich ein bisschen anders.
+Ich habe mehrere Bankkonten bei mindesten zwei verschiedenen Banken. Alle dieser Banken bieten den Kunden die Auszüge als CSV-Downloads an. Im Laufe der Zeit können sich hunderte von CSV-Files ansammeln, die zudem verschiedenen Aufbau haben. Die Deutsche Bank bietet zum Beispiel CSV in deutscher und englischer Sprache an, mit vielen sehr detaillierten Felder, z.B. "Anzahl der Schecks" oder "Fremde Gebühren". Die HypoVereinsbank/UnitCredit hat dagegen weniger Felder, und die Felder heissen natürlich ein bisschen anders.
 
-Wollte ich zum Beispiel wissen, wieviel Bargeld in einem bestimmter Periode abgehoben habe, wäre es natürlich sehr lästig, durch diese Hunderte von CSV-File zu kramen. Als jemand, der sich für RDBMS- und APEX-Webtechnologie begeistert, liegt es nahe, eine APEX-Anwendung zu bauen. Für die Nutzer sollen folgende Grundsätze gelten:
+Wollte ich zum Beispiel wissen, wieviel Geld ich in einer bestimmten Periode ausgegeben habe, wäre es natürlich sehr lästig, durch diese Hunderte von CSV-File zu kramen. Als jemand, der sich für RDBMS- und APEX-Webtechnologie begeistert, liegt es nahe, eine APEX-Anwendung zu bauen. Für die Nutzer sollen folgende Grundsätze gelten:
 
 - Möglichst wenig manuelle Arbeit zum Einpflegen der Daten
-- Komfortables Anzeigen der Transkationen verschiedener Konten in einem Report
+- Komfortables Anzeigen der Transkationen verschiedener Konten in einer einzigen Reportseite
 - Komfortables Filtermöglichkeiten im Report 
 
 # GUI übersicht 
