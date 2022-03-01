@@ -4,17 +4,17 @@ SELECT id,
        bank_alias,
        account_no,
        booking_date,       value_date,
-       to_char( debit * -1, '9G999G999G999D00') "Soll",
-       to_char( credit    , '9G999G999G999D00') "Haben",
+        "Soll",
+        "Haben",
        debit,
        credit,
        currency,
        transaction_type,
        payment_details,
-       iban iban_counterparty,
-       bic  bic_counterparty,
-       extract( year from booking_date) as year_booking,
-       extract( month from booking_date) as month_booking,
+       iban_counterparty,
+       bic_counterparty,
+       year_booking,
+       month_booking,
        beneficiary_originator,
        customer_reference,
        mandate_reference,
@@ -25,6 +25,6 @@ SELECT id,
        number_of_transactions,
        number_of_cheques,
        load_dt
-       , CASE WHEN debit IS NOT NULL THEN debit ELSE credit END amount 
-  FROM bank_transaction 
+       ,amount 
+  FROM v_bank_transaction_facet_base
 /

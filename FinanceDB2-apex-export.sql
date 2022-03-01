@@ -28,12 +28,12 @@ prompt APPLICATION 103 - FinanceDB2
 -- Application Export:
 --   Application:     103
 --   Name:            FinanceDB2
---   Date and Time:   20:08 Thursday February 17, 2022
+--   Date and Time:   17:49 Tuesday March 1, 2022
 --   Exported By:     LAM
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                     14
---       Items:                   41
+--       Items:                   42
 --       Computations:             2
 --       Validations:              2
 --       Processes:               23
@@ -119,7 +119,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'FinanceDB2'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220217190132'
+,p_last_upd_yyyymmddhh24miss=>'20220226215016'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null
@@ -14520,7 +14520,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220212164611'
+,p_last_upd_yyyymmddhh24miss=>'20220226170113'
 );
 wwv_flow_api.create_report_region(
  p_id=>wwv_flow_api.id(9457515618005916)
@@ -14595,7 +14595,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9466976196006162)
 ,p_query_column_id=>2
 ,p_column_alias=>'BANK_ALIAS'
-,p_column_display_sequence=>73
+,p_column_display_sequence=>11
 ,p_column_heading=>'Bank der Transaktion'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
@@ -14606,7 +14606,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9467398044006162)
 ,p_query_column_id=>3
 ,p_column_alias=>'ACCOUNT_NO'
-,p_column_display_sequence=>83
+,p_column_display_sequence=>21
 ,p_column_heading=>'Konto der Transaktion'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
@@ -14617,7 +14617,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9459783475006158)
 ,p_query_column_id=>4
 ,p_column_alias=>'BOOKING_DATE'
-,p_column_display_sequence=>2
+,p_column_display_sequence=>31
 ,p_column_heading=>'Buchungstag'
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
@@ -14629,7 +14629,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9460131456006159)
 ,p_query_column_id=>5
 ,p_column_alias=>'VALUE_DATE'
-,p_column_display_sequence=>3
+,p_column_display_sequence=>41
 ,p_column_heading=>'Wertstellung'
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
@@ -14641,7 +14641,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9460523525006159)
 ,p_query_column_id=>6
 ,p_column_alias=>'TRANSACTION_TYPE'
-,p_column_display_sequence=>33
+,p_column_display_sequence=>91
 ,p_column_heading=>'Typ der Transaktion'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14653,23 +14653,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9402517456051411)
 ,p_query_column_id=>7
 ,p_column_alias=>'Soll'
-,p_column_display_sequence=>203
-,p_hidden_column=>'Y'
-,p_derived_column=>'N'
-);
-wwv_flow_api.create_report_columns(
- p_id=>wwv_flow_api.id(9402634923051412)
-,p_query_column_id=>8
-,p_column_alias=>'Haben'
-,p_column_display_sequence=>213
-,p_hidden_column=>'Y'
-,p_derived_column=>'N'
-);
-wwv_flow_api.create_report_columns(
- p_id=>wwv_flow_api.id(9465725635006161)
-,p_query_column_id=>9
-,p_column_alias=>'DEBIT'
-,p_column_display_sequence=>13
+,p_column_display_sequence=>51
 ,p_column_heading=>'Soll'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
@@ -14677,10 +14661,10 @@ wwv_flow_api.create_report_columns(
 ,p_include_in_export=>'Y'
 );
 wwv_flow_api.create_report_columns(
- p_id=>wwv_flow_api.id(9466171050006162)
-,p_query_column_id=>10
-,p_column_alias=>'CREDIT'
-,p_column_display_sequence=>23
+ p_id=>wwv_flow_api.id(9402634923051412)
+,p_query_column_id=>8
+,p_column_alias=>'Haben'
+,p_column_display_sequence=>61
 ,p_column_heading=>'Haben'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
@@ -14688,10 +14672,26 @@ wwv_flow_api.create_report_columns(
 ,p_include_in_export=>'Y'
 );
 wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(9465725635006161)
+,p_query_column_id=>9
+,p_column_alias=>'DEBIT'
+,p_column_display_sequence=>71
+,p_hidden_column=>'Y'
+,p_derived_column=>'N'
+);
+wwv_flow_api.create_report_columns(
+ p_id=>wwv_flow_api.id(9466171050006162)
+,p_query_column_id=>10
+,p_column_alias=>'CREDIT'
+,p_column_display_sequence=>81
+,p_hidden_column=>'Y'
+,p_derived_column=>'N'
+);
+wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9466540536006162)
 ,p_query_column_id=>11
 ,p_column_alias=>'CURRENCY'
-,p_column_display_sequence=>163
+,p_column_display_sequence=>201
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14699,7 +14699,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9467772471006163)
 ,p_query_column_id=>12
 ,p_column_alias=>'LOAD_DT'
-,p_column_display_sequence=>193
+,p_column_display_sequence=>231
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14707,7 +14707,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9461378217006159)
 ,p_query_column_id=>13
 ,p_column_alias=>'PAYMENT_DETAILS'
-,p_column_display_sequence=>53
+,p_column_display_sequence=>101
 ,p_column_heading=>'Buchungstext'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14719,7 +14719,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9460953226006159)
 ,p_query_column_id=>14
 ,p_column_alias=>'BENEFICIARY_ORIGINATOR'
-,p_column_display_sequence=>143
+,p_column_display_sequence=>171
 ,p_column_heading=>'Beneficiary Originator'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14731,7 +14731,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9461784400006159)
 ,p_query_column_id=>15
 ,p_column_alias=>'IBAN'
-,p_column_display_sequence=>87
+,p_column_display_sequence=>111
 ,p_column_heading=>'Kontrahenten-IBAN'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14743,7 +14743,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9462187701006160)
 ,p_query_column_id=>16
 ,p_column_alias=>'BIC'
-,p_column_display_sequence=>89
+,p_column_display_sequence=>121
 ,p_column_heading=>'Kontrahenten-BIC'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14755,7 +14755,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9402723261051413)
 ,p_query_column_id=>17
 ,p_column_alias=>'YEAR_BOOKING'
-,p_column_display_sequence=>223
+,p_column_display_sequence=>241
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14763,7 +14763,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9402835166051414)
 ,p_query_column_id=>18
 ,p_column_alias=>'MONTH_BOOKING'
-,p_column_display_sequence=>233
+,p_column_display_sequence=>251
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14771,7 +14771,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9462514274006160)
 ,p_query_column_id=>19
 ,p_column_alias=>'CUSTOMER_REFERENCE'
-,p_column_display_sequence=>183
+,p_column_display_sequence=>211
 ,p_column_heading=>'Customer Reference'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14783,7 +14783,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9462902219006160)
 ,p_query_column_id=>20
 ,p_column_alias=>'MANDATE_REFERENCE'
-,p_column_display_sequence=>193
+,p_column_display_sequence=>221
 ,p_column_heading=>'Mandate Reference'
 ,p_use_as_row_header=>'N'
 ,p_heading_alignment=>'LEFT'
@@ -14795,7 +14795,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9463321876006160)
 ,p_query_column_id=>21
 ,p_column_alias=>'CREDITOR_ID'
-,p_column_display_sequence=>103
+,p_column_display_sequence=>131
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14803,7 +14803,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9463785172006160)
 ,p_query_column_id=>22
 ,p_column_alias=>'COMPENSATION_AMOUNT'
-,p_column_display_sequence=>113
+,p_column_display_sequence=>141
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14811,7 +14811,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9464123918006161)
 ,p_query_column_id=>23
 ,p_column_alias=>'ORIGINAL_AMOUNT'
-,p_column_display_sequence=>123
+,p_column_display_sequence=>151
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14819,7 +14819,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9464571643006161)
 ,p_query_column_id=>24
 ,p_column_alias=>'ULTIMATE_CREDITOR'
-,p_column_display_sequence=>133
+,p_column_display_sequence=>161
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14827,7 +14827,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9464996104006161)
 ,p_query_column_id=>25
 ,p_column_alias=>'NUMBER_OF_TRANSACTIONS'
-,p_column_display_sequence=>143
+,p_column_display_sequence=>181
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -14835,7 +14835,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9465310551006161)
 ,p_query_column_id=>26
 ,p_column_alias=>'NUMBER_OF_CHEQUES'
-,p_column_display_sequence=>153
+,p_column_display_sequence=>191
 ,p_column_heading=>'Anz. der Checks'
 ,p_use_as_row_header=>'N'
 ,p_disable_sort_column=>'N'
@@ -14846,7 +14846,7 @@ wwv_flow_api.create_report_columns(
  p_id=>wwv_flow_api.id(9585405686035814)
 ,p_query_column_id=>27
 ,p_column_alias=>'BETRAG'
-,p_column_display_sequence=>243
+,p_column_display_sequence=>261
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -15106,7 +15106,7 @@ wwv_flow_api.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_page_template_options=>'#DEFAULT#'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220121191433'
+,p_last_upd_yyyymmddhh24miss=>'20220226215016'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(10883705862743009)
@@ -15170,7 +15170,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'BANK_AND_ACC'
 ,p_display_order=>10
 ,p_column_identifier=>'A'
-,p_column_label=>'Bank And Acc'
+,p_column_label=>'Bank / Konto'
 ,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_column(
@@ -15178,7 +15178,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'XACT_YEAR'
 ,p_display_order=>20
 ,p_column_identifier=>'B'
-,p_column_label=>'Xact Year'
+,p_column_label=>'Jahr'
 ,p_column_type=>'NUMBER'
 ,p_column_alignment=>'RIGHT'
 );
@@ -15187,7 +15187,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'XACT_MONTH'
 ,p_display_order=>30
 ,p_column_identifier=>'C'
-,p_column_label=>'Xact Month'
+,p_column_label=>'Monat'
 ,p_column_type=>'NUMBER'
 ,p_column_alignment=>'RIGHT'
 );
@@ -15196,7 +15196,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'YYYYMM'
 ,p_display_order=>40
 ,p_column_identifier=>'D'
-,p_column_label=>'Yyyymm'
+,p_column_label=>'Jahr.Monat'
 ,p_column_type=>'STRING'
 );
 wwv_flow_api.create_worksheet_column(
@@ -15204,16 +15204,15 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'FIRST_DAY'
 ,p_display_order=>50
 ,p_column_identifier=>'E'
-,p_column_label=>'First Day'
+,p_column_label=>'Erster <br>Tag mit <br> Transaktion'
 ,p_column_type=>'NUMBER'
-,p_column_alignment=>'RIGHT'
 );
 wwv_flow_api.create_worksheet_column(
  p_id=>wwv_flow_api.id(9587320030035833)
 ,p_db_column_name=>'LAST_DAY'
 ,p_display_order=>60
 ,p_column_identifier=>'F'
-,p_column_label=>'Last Day'
+,p_column_label=>'Letzter <br>Tag mit <br>Transaktion'
 ,p_column_type=>'NUMBER'
 ,p_column_alignment=>'RIGHT'
 );
@@ -15222,7 +15221,7 @@ wwv_flow_api.create_worksheet_column(
 ,p_db_column_name=>'ITEMS'
 ,p_display_order=>70
 ,p_column_identifier=>'G'
-,p_column_label=>'Items'
+,p_column_label=>'Anzahl <br>Transaktionen'
 ,p_column_type=>'NUMBER'
 ,p_column_alignment=>'RIGHT'
 );
@@ -15234,6 +15233,16 @@ wwv_flow_api.create_worksheet_rpt(
 ,p_status=>'PUBLIC'
 ,p_is_default=>'Y'
 ,p_report_columns=>'BANK_AND_ACC:XACT_YEAR:XACT_MONTH:YYYYMM:FIRST_DAY:LAST_DAY:ITEMS'
+);
+wwv_flow_api.create_page_item(
+ p_id=>wwv_flow_api.id(9588046947035840)
+,p_name=>'P14_1ST_XACT_DAY_HEADING'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_api.id(10883705862743009)
+,p_source=>'Erster Tag&lt;br&gt;Transaktion'
+,p_source_type=>'STATIC'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 end;
 /
