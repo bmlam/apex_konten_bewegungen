@@ -25,6 +25,6 @@ SELECT id,
        number_of_transactions,
        number_of_cheques,
        load_dt
-       , CASE WHEN debit IS NOT NULL THEN debit ELSE credit END amount 
+       , coalesce( credit, debit) amount 
   FROM bank_transaction 
 /

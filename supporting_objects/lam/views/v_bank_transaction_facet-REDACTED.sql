@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW v_bank_transaction_facet_2
+CREATE OR REPLACE VIEW v_bank_transaction_facet
 AS
 WITH FUNCTION masked_data 
        ( pi_data VARCHAR2
@@ -12,7 +12,7 @@ WITH FUNCTION masked_data
        END masked_data;
 SELECT id, 
        bank_alias,
-       account_no,
+       masked_data( account_no ) AS account_no,
        booking_date,       value_date,
        "Soll",
         "Haben",

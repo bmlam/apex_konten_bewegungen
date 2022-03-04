@@ -28,7 +28,7 @@ prompt APPLICATION 103 - FinanceDB2
 -- Application Export:
 --   Application:     103
 --   Name:            FinanceDB2
---   Date and Time:   17:49 Tuesday March 1, 2022
+--   Date and Time:   16:55 Friday March 4, 2022
 --   Exported By:     LAM
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -102,7 +102,7 @@ wwv_flow_api.create_flow(
 ,p_documentation_banner=>'Application created from create application wizard 2021.12.14.'
 ,p_authentication=>'PLUGIN'
 ,p_authentication_id=>wwv_flow_api.id(9220741516985525)
-,p_application_tab_set=>1
+,p_application_tab_set=>0
 ,p_logo_type=>'T'
 ,p_logo_text=>'FinanceDB2'
 ,p_app_builder_icon_name=>'app-icon.svg'
@@ -110,6 +110,7 @@ wwv_flow_api.create_flow(
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
 ,p_flow_version=>'Release 1.0'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
+,p_build_status=> 'RUN_ONLY'
 ,p_exact_substitutions_only=>'Y'
 ,p_browser_cache=>'N'
 ,p_browser_frame=>'D'
@@ -119,7 +120,7 @@ wwv_flow_api.create_flow(
 ,p_substitution_string_01=>'APP_NAME'
 ,p_substitution_value_01=>'FinanceDB2'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220226215016'
+,p_last_upd_yyyymmddhh24miss=>'20220304165201'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
 ,p_ui_type_name => null
@@ -12214,7 +12215,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211217180908'
+,p_last_upd_yyyymmddhh24miss=>'20220304165201'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9388069587022274)
@@ -12452,13 +12453,12 @@ wwv_flow_api.create_page_item(
 ,p_name=>'P2_DATA'
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_api.id(9390890438022278)
-,p_prompt=>'Copy and Paste Delimited Data'
+,p_prompt=>'Bitte  Deutsche Bank CSV (deutsche Version) hierher kopieren'
 ,p_display_as=>'NATIVE_TEXTAREA'
 ,p_cSize=>60
 ,p_cHeight=>10
 ,p_field_template=>wwv_flow_api.id(9341207004985643)
 ,p_item_template_options=>'#DEFAULT#'
-,p_lov_display_extra=>'NO'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'N'
 ,p_attribute_03=>'N'
@@ -12598,7 +12598,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20211217180928'
+,p_last_upd_yyyymmddhh24miss=>'20220304165025'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9420691514698228)
@@ -12883,13 +12883,12 @@ wwv_flow_api.create_page_item(
 ,p_name=>'P3_DATA'
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_api.id(9423454359698235)
-,p_prompt=>'Copy and Paste Delimited Data'
+,p_prompt=>'Bitte Deutsche Bank CSV (englische Version) hierher kopieren'
 ,p_display_as=>'NATIVE_TEXTAREA'
 ,p_cSize=>60
 ,p_cHeight=>10
 ,p_field_template=>wwv_flow_api.id(9341207004985643)
 ,p_item_template_options=>'#DEFAULT#'
-,p_lov_display_extra=>'NO'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'N'
 ,p_attribute_03=>'N'
@@ -12980,7 +12979,7 @@ wwv_flow_api.create_page(
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_last_updated_by=>'LAM'
-,p_last_upd_yyyymmddhh24miss=>'20220121154400'
+,p_last_upd_yyyymmddhh24miss=>'20220304165135'
 );
 wwv_flow_api.create_page_plug(
  p_id=>wwv_flow_api.id(9441580262889848)
@@ -13265,13 +13264,12 @@ wwv_flow_api.create_page_item(
 ,p_name=>'P4_DATA'
 ,p_item_sequence=>10
 ,p_item_plug_id=>wwv_flow_api.id(9444321664889851)
-,p_prompt=>'Copy and Paste Delimited Data'
+,p_prompt=>'Bitte  HVB CSV-Daten (deutsche Version) hierher kopieren'
 ,p_display_as=>'NATIVE_TEXTAREA'
 ,p_cSize=>60
 ,p_cHeight=>10
 ,p_field_template=>wwv_flow_api.id(9341207004985643)
 ,p_item_template_options=>'#DEFAULT#'
-,p_lov_display_extra=>'NO'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'N'
 ,p_attribute_03=>'N'
