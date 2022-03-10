@@ -15,8 +15,11 @@ Es gibt hauptsächlich zwei Use-Cases
 1. Copy und Paste der CSV-Texte, die Ihnen Ihre Bank online zur Verfügung stellte, in einer der mehrere "CSV-Daten-Laden" Masken. Wenn man zum Beispiel vierteljährlich ein CSV-Download für die letzen 3 Monate runterlädt und sofort die Daten aus der Datei in die APEX-Anwendung lädt, fällt diese Arbeitscchritt nur 1 mal pro Quartal, pro Konto an.
 2. Anzeigen der Kontobewegungen (Transaktion) in einer Report-Maske mit verschiedenen interaktiven und komfortablen Filtermöglichkeiten (Facet Search)
 
+<img src="presentation/Screenshot-Kontobwg-FacetSearch-Filtered-anonym.png"
+     style="float: left; margin-right: 10px;" />
+
 # Technologie und Installationsanleitung
-Die Anwendung wurde mit einem kostenlosem Account bei https://apex.oracle.com/pls/apex/ entwickelt. Dahinter verbirgt sich eine Oracle 21? Datenbankschema und die APEX Version 21.
+Die Anwendung wurde mit einem kostenlosem Account bei https://apex.oracle.com/pls/apex/ entwickelt. Dahinter verbirgt sich eine Oracle 21.2 Datenbankschema und die gleichlaufende APEX Version.
 
 Zur Installation der Anwendung für die eigene Nutzung gibt es wohl diese Möglichkeiten
 - Sie verschaffen sich selbst ein Konto bei dem obengenannten Oracle Dienst. Ihre Kontendaten würden dann bei Oracle gehostet, mit den entsprechenden Implikationen.
