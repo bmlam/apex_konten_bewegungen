@@ -22,11 +22,19 @@ Es gibt hauptsächlich zwei Use-Cases
 # Infrastruktur 
 Für diejenigen, die sich noch nicht mit APEX beschäftigt haben, sich aber zu einem Einstieg trauen, wäre diese Anwendung etwas, das für den Beginner sich eignet und einen reellen Nutzen hat. 
 
-Ich habe die Anwendung mit einem kostenlosem Account bei https://apex.oracle.com/pls/apex/ entwickelt, das heißt in der Oracle Cloud. Dahinter verbirgt sich eine Oracle 21.2 Datenbank und eine APEX-Instanz in der gleichlaufenden Version. Genau genommen entspricht jeder Account einem Datenbankschema und einem APEX-Workspace. Jeder kann bei Oracle ein solches Account beantragen.
+Ich habe die Anwendung auf einer "always-free" (Autonomous Transaction Processing) ATP-Datenbank in der Oracle Cloud entwickelt. Diese Datenbank enthält eine fertig installierte APEX-Instanz. Es handelt sich um eine Oracle 21 Datenbank, wobei der Cloud-Nutzer, also ich, ein DBA-Account bekomme und mit Hilfe eines Wallets auch per SQL Developer oder Sqlplus auf die Datenbank zugreifen kann. Mit einer ATP hat man die Möglichkeit, mit vielen DBA-Aufgabenstellungen zu experimentieren, ohne eine eigene VM oder Server betreiben und die Datenbank selbst installieren zu müssen.
+ 
+Nutzen tue ich die Anwendung mit einem kostenlosem Account bei https://apex.oracle.com/pls/apex, also ebenfalls in der Oracle Cloud. Hinter diesem APEX-Workspace verbirgt sich ebenso eine Oracle 21 Datenbank. Genau genommen entspricht jeder Account einem Datenbankschema und einem APEX-Workspace. Jeder kann bei Oracle ein solches Account beantragen. Mit diesem Account kann man SQL Befehle nur im SQL Workshop der webbasierter APEX-GUI ausführen. Zugriffe über andere Oracle Client sind nicht erlaubt. SQL-Skripte müssen zur Ausführung hochgeladen werden, was eine versionierte Entwicklung fast unmöglich macht. 
 
-Wenn man im Haus bereits eine funktionierende APEX-Instanz mit der passenden Version hat, muss nur noch die Anwendung installiert werden. Siehe weiter unten. 
+Ich habe mit für die Konfiguration: ATP als Entwicklung, APEX-Instanz als "Produktion" entschieden, denn 
+- ATP erlaubt Oracle Client Zugriffe, ermöglicht daher repository-basierte Entwicklung
+- Die Release-Nummer der ATP-Instanz ist nach meiner Erfahrung immer niedriger als die APEX-Instanz. Der Export der Anwendung aus einer niedrigen Release und Import in eine Instanz mit höheren Release funktioniert gut. Umgekehrt ist es wohl unmöglich.
 
-Gewisses Niveau an Knowhow im Umgang mit der Oracle-Datenbank wird vorausgesetzt.
+Stand der APEX-Release am 2022.03.12:
+- 21.1.7 ATP        
+- 21.2.4 APEX-Only   
+
+Wenn man im Haus bereits eine funktionierende APEX-Instanz mit der passenden Release hat, muss nur noch die Anwendung installiert werden. Siehe weiter unten. Gewisses Niveau an Knowhow im Umgang mit der Oracle-Datenbank wird vorausgesetzt.
 
 # Privatsphäre
 Diese Anwendung ist so geschrieben, dass keine schützenswerte Daten (zum Beispiel Kontonummer) im APEX- oder SQL-Code auftauchen. Zum Konfigurieren der Bank-Aliase und IBAN-Nummer *wird* es eine Admin-Maske geben. Wenn man die Kontobewegungsdaten hochgeladen hat, sind diese natürlich sichtbar für alle, die Zugriff auf die Oracle-Datenbank oder auf die APEX-Anwendung haben.
