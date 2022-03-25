@@ -94,7 +94,7 @@ def gotChildPath ( text ):
 			return scriptPath.strip() 
 
 def processScript( pathAsGiven ):
-	global allLines, nestingLev, scripts 
+	global allLines, nestingLev, scripts , pathCommonDenom
 
 	nestingLev += 1
 	if nestingLev > 99:
@@ -107,7 +107,11 @@ def processScript( pathAsGiven ):
 	for line in lines:
 		childPath = gotChildPath( line )
 		if childPath:
-			allLines.append ( "REM ********** imbedding script " + childPath + "********** ")
+			if pathCommonDenom :
+				pathToDisplay = os.path.relpath( childPath, pathCommonDenom )
+			else:
+				pathToDisplay = childPath
+			allLines.append ( "REM ********** imbedding script " + pathToDisplay + "********** ")
 			processScript( childPath )
 		else:
 			allLines.append( line.rstrip() )
