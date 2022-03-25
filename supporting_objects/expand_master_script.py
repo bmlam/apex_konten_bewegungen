@@ -1,5 +1,19 @@
 #! /usr/bin/python3 
 
+""" this script was built originally with these assumptions:
+	* all child scripts are envoked like this
+	  START path/to/child_script
+	* path/to/child_script is a literal without ampersand as variable 
+	* the current directory on which this script is run can read the content of ALL path/to/child_script 
+
+	However for practical purpose the child script might be envoked like this 
+	  START &&BASE_LOC/to/child_script 
+	In this case this program needs to replace "&&BASE_LOC" with a literal that the user must provide, 
+	so that the content of the child scripts can be read. Two additional pieces of information are needed:
+	1. what is the name of the base location variable. In the example above it is "BASE_LOC"
+	2. what does this variable need to be replaced with. Obviously, this must be the "common denominator" 
+	   of all the child scripts
+"""
 from dbx import _dbx, _errorExit , g_maxDbxMsg, setDebug  
 import os.path , re, sys , tempfile 
 
@@ -9,7 +23,7 @@ scripts = []
 
 nestingLev = 0 
 baseDir = ""
-baseToIgnoreInMaster= None
+sqlplusVarName= None
 allLines = []
 
 
@@ -18,11 +32,14 @@ def parseCmdArgs() :
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument( '-b','--baseDir', help='base location of scripts', required = True 	)
-	parser.add_argument( '-i','--ignoreBaseInMaster', help= "if master script contains a base location SQLPLUS variable" )
 	parser.add_argument( '-m','--masterScriptPath', required= True	)
+	parser.add_argument( '-D','--pathCommonDenominator', help= "if master script contains a base location SQLPLUS variable, what is the variable name?" )
+	parser.add_argument( '-V','--sqlplusVariableName', help= "if master script contains a base location SQLPLUS variable, what is the variable name?" )
 	# parser.add_argument( '-o','--outputFile', help='path of outputFile' )
 
 	result= parser.parse_args()
+	if ( result.pathCommonDenominator and not result.sqlplusVariableName ) or ( not result.pathCommonDenominator and result.sqlplusVariableName ) :
+		_errorExit( "-D and -V must be specified togehter!") 
 
 	return result 
 
@@ -39,20 +56,21 @@ def checkResolvePath( inpPath ):
 
 	return script
 
-def stripSqlVarForBaseLocation( scriptPath ):
-	global baseToIgnoreInMaster
+def convertSqlplusVariable( scriptPath ):
+	global sqlplusVarName, pathCommonDenom
 	retVal = scriptPath
-	toReplace = "&&" + baseToIgnoreInMaster + os.path.sep 
+	# sqplus variable with two ampersands
+	toReplace = "&&" + sqlplusVarName + os.path.sep 
 	if scriptPath.startswith( toReplace ) :
-		retVal = scriptPath.replace( toReplace, "")
+		retVal = scriptPath.replace( toReplace, pathCommonDenom )
 	else: 
-		toReplace = "&" + baseToIgnoreInMaster + os.path.sep 
+		# sqlplus variable with one ampersand only 
+		toReplace = "&" + sqlplusVarName + os.path.sep 
 		if scriptPath.startswith( toReplace ) :
-			retVal = scriptPath.replace( toReplace, "")
+			retVal = scriptPath.replace( toReplace,  pathCommonDenom )
 	return retVal
 
 def gotChildPath ( text ):
-	global baseToIgnoreInMaster
 	#_dbx( text )
 	z = re.match ( "^\s*(@|@@)(\s+)(.*)$" , text )
 	if z:
@@ -60,7 +78,7 @@ def gotChildPath ( text ):
 		if len ( z.groups() ) == 3:
 			scriptPath = z.group(3) 
 			_dbx( scriptPath )
-			scriptPath = stripSqlVarForBaseLocation( scriptPath )
+			scriptPath = convertSqlplusVariable( scriptPath )
 
 			return scriptPath.strip()
 			_dbx( scriptPath )
@@ -71,21 +89,21 @@ def gotChildPath ( text ):
 		if len ( z.groups() ) == 3:
 			scriptPath = z.group(3) 
 			_dbx( scriptPath )
-			scriptPath = stripSqlVarForBaseLocation( scriptPath )
+			scriptPath = convertSqlplusVariable( scriptPath )
 
 			return scriptPath.strip() 
 
-def processScript( path ):
+def processScript( pathAsGiven ):
 	global allLines, nestingLev, scripts 
 
 	nestingLev += 1
 	if nestingLev > 99:
 		exit( "the program seems to have entered an infinite loop!")
 
-	script = checkResolvePath( path ) # will error out if path is bad 
-	scripts.append( script )
+	scriptPathComputed = checkResolvePath( pathAsGiven ) # will error out if path is bad 
+	scripts.append( scriptPathComputed  )
 
-	lines =  open( script.absPath ).readlines()
+	lines =  open( scriptPathComputed.absPath ).readlines()
 	for line in lines:
 		childPath = gotChildPath( line )
 		if childPath:
@@ -94,19 +112,21 @@ def processScript( path ):
 		else:
 			allLines.append( line.rstrip() )
 	nestingLev -= 1
-	allLines.append ( "REM ********** end of expansion of script " + path + "********** ")
 
 	scripts.pop ()
 	
 def main():
-	global baseDir , baseToIgnoreInMaster
+	global baseDir , sqlplusVarName, pathCommonDenom
 
 	argObj = parseCmdArgs()
 	baseDir = argObj.baseDir 
 	setDebug ( True )
 
-	if argObj.ignoreBaseInMaster:
-		baseToIgnoreInMaster = argObj.ignoreBaseInMaster 
+	if argObj.sqlplusVariableName:
+		sqlplusVarName = argObj.sqlplusVariableName 
+
+	if argObj.pathCommonDenominator:
+		pathCommonDenom = argObj.pathCommonDenominator 
 
 	# following call is will process the master and children script recursively
 	processScript ( argObj.masterScriptPath )
