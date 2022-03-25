@@ -20,6 +20,8 @@ import os.path , re, sys , tempfile
 from collections import namedtuple
 Script = namedtuple( "Script", [ "inpPath", "absPath" ] )
 scripts = []
+pathCommonDenom = None
+sqlplusVarName = None 
 
 nestingLev = 0 
 baseDir = ""
@@ -59,15 +61,16 @@ def checkResolvePath( inpPath ):
 def convertSqlplusVariable( scriptPath ):
 	global sqlplusVarName, pathCommonDenom
 	retVal = scriptPath
-	# sqplus variable with two ampersands
-	toReplace = "&&" + sqlplusVarName + os.path.sep 
-	if scriptPath.startswith( toReplace ) :
-		retVal = scriptPath.replace( toReplace, pathCommonDenom )
-	else: 
-		# sqlplus variable with one ampersand only 
-		toReplace = "&" + sqlplusVarName + os.path.sep 
+	if sqlplusVarName:
+		# sqplus variable with two ampersands
+		toReplace = "&&" + sqlplusVarName + os.path.sep 
 		if scriptPath.startswith( toReplace ) :
-			retVal = scriptPath.replace( toReplace,  pathCommonDenom )
+			retVal = scriptPath.replace( toReplace, pathCommonDenom )
+		else: 
+			# sqlplus variable with one ampersand only 
+			toReplace = "&" + sqlplusVarName + os.path.sep 
+			if scriptPath.startswith( toReplace ) :
+				retVal = scriptPath.replace( toReplace,  pathCommonDenom )
 	return retVal
 
 def gotChildPath ( text ):
