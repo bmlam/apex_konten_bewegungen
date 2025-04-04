@@ -387,6 +387,9 @@ BEGIN
         WHERE account_id = pi_bank_code
         ;
     END IF;
+    pck_std_log.info( a_comp=> $$plsql_unit, a_subcomp=>'Line'||$$plsql_line
+            , a_text=> 'l_bank_alias_used:'||l_bank_alias_used
+        );
 
     /* compute period of transaction we are going to insert into the target table
     and make sure no single transaction within this period exists in the target
@@ -395,9 +398,9 @@ BEGIN
     CASE pi_csv_version 
     WHEN 'DE'
     THEN 
-        SELECT min( buchungstag), max(buchungstag)
+        SELECT min( booking_date), max(booking_date)
         into l_min_xact_dt_src, l_max_xact_dt_src
-        FROM    IMP_DEUTSCHE_BANK_CSV_DEUTSCH
+        FROM    v_imp_consors_csv_de_2main_map
         WHERE apex_sess_id = APEX_CUSTOM_AUTH.GET_SESSION_ID
         ;
     END CASE;
@@ -435,39 +438,18 @@ BEGIN
     THEN 
         --pck_std_log.info( a_comp=> $$plsql_unit, a_subcomp=>'Line'||$$plsql_line   , a_text=> ' got here');
         CASE pi_csv_version
-        WHEN 'EN'
-        THEN 
-            INSERT INTO bank_transaction
-            (   BOOKING_DATE,            VALUE_DATE,            TRANSACTION_TYPE,            BENEFICIARY_ORIGINATOR,            PAYMENT_DETAILS,
-            IBAN,            BIC,            CUSTOMER_REFERENCE,            MANDATE_REFERENCE,            CREDITOR_ID,
-            COMPENSATION_AMOUNT,            ORIGINAL_AMOUNT,            ULTIMATE_CREDITOR,            NUMBER_OF_TRANSACTIONS,            NUMBER_OF_CHEQUES,
-            DEBIT,            CREDIT,            CURRENCY,            BANK_ALIAS,            ACCOUNT_NO
-            )
-            SELECT  BOOKING_DATE,            VALUE_DATE,            TRANSACTION_TYPE,            BENEFICIARY___ORIGINATOR,            PAYMENT_DETAILS,
-            IBAN,            BIC,            CUSTOMER_REFERENCE,            MANDATE_REFERENCE,            CREDITOR_ID,
-            COMPENSATION_AMOUNT,            ORIGINAL_AMOUNT,            ULTIMATE_CREDITOR,            NUMBER_OF_TRANSACTIONS,            NUMBER_OF_CHEQUES,
-            DEBIT,            CREDIT,            CURRENCY,            l_bank_alias_used ,            pi_bank_code
-            from IMP_DEUTSCHE_BANK s
-            ;
-
         WHEN 'DE'
         THEN 
             INSERT INTO bank_transaction
-            (   BOOKING_DATE,            VALUE_DATE,            TRANSACTION_TYPE,            BENEFICIARY_ORIGINATOR,            PAYMENT_DETAILS,
-            IBAN,            BIC,            CUSTOMER_REFERENCE,            MANDATE_REFERENCE,            CREDITOR_ID,
-            COMPENSATION_AMOUNT,            ORIGINAL_AMOUNT,            ULTIMATE_CREDITOR,            NUMBER_OF_TRANSACTIONS,            NUMBER_OF_CHEQUES,
-            DEBIT,            
-            CREDIT,            
-            CURRENCY,            BANK_ALIAS,            ACCOUNT_NO
+            (   booking_date,   value_date, transaction_type,   beneficiary_originator, payment_details
+            ,   iban,   bic,    debit,  credit, currency
+            ,   bank_alias,            account_no
             )
             select 
-                BUCHUNGSTAG,                WERT,                UMSATZART,                "BEGÜNSTIGTER___AUFTRAGGEBER",                VERWENDUNGSZWECK,
-                IBAN,                BIC,                KUNDENREFERENZ,                MANDATSREFERENZ,                "GLÄUBIGER_ID",
-                "FREMDE_GEBÜHREN",                BETRAG,                "ABWEICHENDER_EMPFÄNGER",                "ANZAHL_DER_AUFTRÄGE",                ANZAHL_DER_SCHECKS,
-                TO_NUMBER( soll,  '999g999g999d99' ,q'[NLS_NUMERIC_CHARACTERS = ',.']' )   SOLL,               
-                TO_NUMBER( haben, '999g999g999d99' ,q'[NLS_NUMERIC_CHARACTERS = ',.']' )   HABEN,               
-                "WÄHRUNG",            l_bank_alias_used ,            pi_bank_code
-            from IMP_DEUTSCHE_BANK_CSV_DEUTSCH a
+                booking_date,   value_date, transaction_type,   beneficiary_originator, payment_details
+            ,   iban,   bic,    debit,  credit, currency
+            ,   l_bank_alias_used ,            pi_bank_code
+            from v_imp_consors_csv_de_2main_map a
             WHERE apex_sess_id = APEX_CUSTOM_AUTH.GET_SESSION_ID
             ;
         END CASE; -- Language ok
@@ -476,7 +458,7 @@ BEGIN
     CASE pi_csv_version 
     WHEN 'DE'
     THEN 
-        DELETE FROM    IMP_DEUTSCHE_BANK_CSV_DEUTSCH
+        DELETE FROM    v_imp_consors_csv_de_2main_map
         WHERE apex_sess_id = APEX_CUSTOM_AUTH.GET_SESSION_ID
         ;
     END CASE;
