@@ -368,9 +368,16 @@ AS
     l_xact_dt_range_conflicts BOOLEAN;
     l_bank_alias_used bank_transaction.bank_alias%TYPE;
 BEGIN
-    IF pi_csv_version NOT IN ( 'DE') THEN
-        RAISE_APPLICATION_ERROR( 20001, 'pi_csv_version '||substr(pi_csv_version, 1, 3)||' is invalid for procedure in '||gc_pkg_name||':ln'||$$plsql_line );
-    END IF;
+    CASE 
+        WHEN  pi_csv_version NOT IN ( 'DE') 
+        THEN
+            RAISE_APPLICATION_ERROR( -20001, 'pi_csv_version '||substr(pi_csv_version, 1, 3)||' is invalid for procedure in '||gc_pkg_name||':ln'||$$plsql_line );
+        WHEN  coalesce( pi_bank_alias, pi_bank_code ) IS NULL 
+        THEN
+            RAISE_APPLICATION_ERROR( -20001, 'Error from '||gc_pkg_name||':ln'||$$plsql_line ||' at least bank account must be provided');
+        ELSE 
+            NULL;
+    END CASE;
 
     pck_std_log.info( a_comp=> $$plsql_unit, a_subcomp=>'Line'||$$plsql_line
             , a_text=> 'alias:'||pi_bank_alias
