@@ -33,12 +33,12 @@ prompt APPLICATION 224267 - FinanceDB_Official
 -- Application Export:
 --   Application:     224267
 --   Name:            FinanceDB_Official
---   Date and Time:   16:53 Sunday September 7, 2025
+--   Date and Time:   15:00 Friday September 12, 2025
 --   Exported By:     DEVELOPER1
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                     18
---       Items:                   50
+--       Items:                   51
 --       Computations:             2
 --       Validations:              2
 --       Processes:               28
@@ -131,7 +131,7 @@ wwv_imp_workspace.create_flow(
 ,p_substitution_value_01=>'FinanceDB2'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')
 ,p_files_version=>3
-,p_version_scn=>15651910347489
+,p_version_scn=>15653128503616
 ,p_print_server_type=>'NATIVE'
 ,p_file_storage=>'DB'
 ,p_is_pwa=>'N'
@@ -16104,6 +16104,21 @@ wwv_flow_imp_page.create_page_item(
   'resizable', 'Y',
   'trim_spaces', 'BOTH')).to_clob
 );
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(82544492304990849214)
+,p_name=>'P8_YEAR_REPLACEMENT'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(82544491395142849204)
+,p_prompt=>'Replace_year_with'
+,p_display_as=>'NATIVE_NUMBER_FIELD'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(112365952906748136695)
+,p_item_template_options=>'#DEFAULT#'
+,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
+  'min_value', '2020',
+  'number_alignment', 'left',
+  'virtual_keyboard', 'decimal')).to_clob
+);
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(82544492185038849212)
 ,p_process_sequence=>10
@@ -16111,50 +16126,64 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_type=>'NATIVE_PLSQL'
 ,p_process_name=>'load_to_imp_tab le'
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'DECLARE l_row_cnt NUMBER;',
+'DECLARE ',
+'    l_row_cnt NUMBER;',
+'    l_json_data_used LONG;',
 'BEGIN ',
-'DELETE imp_deutsche_bank ',
-'WHERE apex_sess_id = APEX_CUSTOM_AUTH.GET_SESSION_ID',
-';',
-'INSERT INTO imp_deutsche_bank ',
-'( apex_sess_id',
-' ,account_no',
-' ,booking_date',
-' ,value_date',
-' ,currency',
-' ,payment_details',
-' ,debit',
-')',
-'SELECT ',
-'  APEX_CUSTOM_AUTH.GET_SESSION_ID',
-'  ,:BANK_ACC_NO',
-'  ,to_date(jt.transaction_date, ''dd.mm.yyyy'')',
-'  ,to_date(jt.value_date, ''dd.mm.yyyy'')',
-'  ,''EUR''',
-'  ,jt.sale_text',
-'  , to_number( translate( jt.amount, ''0123456789,.'', ''0123456789.,'' ), ''9,999,999.99'') AS amount',
-'  --,jt.amount',
-'FROM JSON_TABLE (',
-'       :P8_JSON_DATA, ''$[*]''',
-'       COLUMNS (',
-'         transaction_date VARCHAR2(20) PATH ''$.transaction_date'',',
-'         value_date       VARCHAR2(20) PATH ''$.value_date'',',
-'         sale_text           VARCHAR2(100) PATH ''$.sale_text'',',
-'         amount           VARCHAR2(20) PATH ''$.amount''',
-'       )',
-'     ) jt',
-'     ;',
-' l_row_cnt := sql%rowcount;',
-' iF l_row_cnt = 0 THEN ',
-'    raise_application_error( -20001, ''no rows inserted from JSON'');',
-' END IF;',
-' pck_std_log.inf( ''rows inserted : ''|| l_row_cnt);',
-'pkg_kto_bwg. transfer_xact_deu_bank_to_main',
-'(',
-'    pi_bank_alias =>  NULL -- leave it to procedure code ',
-'    ,pi_bank_code => :BANK_ACC_NO',
-'    ,pi_csv_version => ''EN'' -- default, refers to header language ',
-');',
+'--',
+'    l_json_data_used := :P8_JSON_DATA;',
+'    IF :P8_YEAR_REPLACEMENT IS NOT NULL ',
+'    THEN ',
+'        l_json_data_used := replace( l_json_data_used, ''.2222"'', ''.''||:P8_YEAR_REPLACEMENT||''"'' );',
+'    END IF;',
+'--',
+'    IF dbms_lob.getlength( :l_json_data_used) >= 32700 THEN ',
+'        RAISE_APPLICATION_ERROR( -20001, ''Input data is likely to large to be processed correctly!. Input smaller chunks if possible'');',
+'    END IF;',
+'    --',
+'    DELETE imp_deutsche_bank ',
+'    WHERE apex_sess_id = APEX_CUSTOM_AUTH.GET_SESSION_ID',
+'    ;',
+'    INSERT INTO imp_deutsche_bank ',
+'    ( apex_sess_id',
+'     ,account_no',
+'     ,booking_date',
+'     ,value_date',
+'     ,currency',
+'     ,payment_details',
+'     ,debit',
+'    )',
+'    SELECT ',
+'      APEX_CUSTOM_AUTH.GET_SESSION_ID',
+'      ,:BANK_ACC_NO',
+'      ,to_date(jt.transaction_date, ''dd.mm.yyyy'')',
+'      ,to_date(jt.value_date, ''dd.mm.yyyy'')',
+'      ,''EUR''',
+'      ,jt.sale_text',
+'      , to_number( translate( jt.amount, ''0123456789,.'', ''0123456789.,'' ), ''9,999,999.99'') AS amount',
+'      --,jt.amount',
+'    FROM JSON_TABLE (',
+'           l_json_data_used, ''$[*]''',
+'           COLUMNS (',
+'             transaction_date VARCHAR2(20) PATH ''$.transaction_date'',',
+'             value_date       VARCHAR2(20) PATH ''$.value_date'',',
+'             sale_text           VARCHAR2(100) PATH ''$.sale_text'',',
+'             amount           VARCHAR2(20) PATH ''$.amount''',
+'           )',
+'         ) jt',
+'         ;',
+'     l_row_cnt := sql%rowcount;',
+'     iF l_row_cnt = 0 THEN ',
+'        raise_application_error( -20001, ''no rows inserted from JSON'');',
+'     END IF;',
+'     pck_std_log.inf( ''rows inserted : ''|| l_row_cnt);',
+'     --',
+'    pkg_kto_bwg. transfer_xact_deu_bank_to_main',
+'    (',
+'        pi_bank_alias =>  NULL -- leave it to procedure code ',
+'        ,pi_bank_code => :BANK_ACC_NO',
+'        ,pi_csv_version => ''EN'' -- default, refers to header language ',
+'    );',
 'END;'))
 ,p_process_clob_language=>'PLSQL'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'

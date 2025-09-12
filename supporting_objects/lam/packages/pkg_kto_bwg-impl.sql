@@ -30,6 +30,10 @@ AS
    ,po_conflict_count OUT NUMBER 
   ) AS 
   BEGIN 
+    IF pi_period_begin > trunc( sysdate )
+    THEN 
+        RAISE_APPLICATION_ERROR( -20001, 'it is not allowed to load transaction in the future! Period begin:'||to_char( pi_period_begin, 'yyyy.mm.dd'));
+    END IF;
     select COUNT(1)
     into po_conflict_count
     from bank_transaction
