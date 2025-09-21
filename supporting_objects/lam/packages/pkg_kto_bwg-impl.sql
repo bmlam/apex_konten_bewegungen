@@ -313,15 +313,19 @@ BEGIN
             INSERT INTO bank_transaction
             (   BOOKING_DATE,            VALUE_DATE,            TRANSACTION_TYPE,            BENEFICIARY_ORIGINATOR,            PAYMENT_DETAILS,
             IBAN,            BIC,            CUSTOMER_REFERENCE,            MANDATE_REFERENCE,            CREDITOR_ID,
-            COMPENSATION_AMOUNT,            ORIGINAL_AMOUNT,            ULTIMATE_CREDITOR,            NUMBER_OF_TRANSACTIONS,            NUMBER_OF_CHEQUES,
-            DEBIT,            
-            CREDIT,            
-            CURRENCY,            BANK_ALIAS,            ACCOUNT_NO
+            COMPENSATION_AMOUNT
+            ,  ORIGINAL_AMOUNT
+            ,  ULTIMATE_CREDITOR,            NUMBER_OF_TRANSACTIONS,            NUMBER_OF_CHEQUES
+            , DEBIT      
+            , CREDIT      
+            , CURRENCY,            BANK_ALIAS,            ACCOUNT_NO
             )
             select 
                 BUCHUNGSTAG,                WERT,                UMSATZART,                "BEGÜNSTIGTER___AUFTRAGGEBER",                VERWENDUNGSZWECK,
                 IBAN,                BIC,                KUNDENREFERENZ,                MANDATSREFERENZ,                "GLÄUBIGER_ID",
-                "FREMDE_GEBÜHREN",                BETRAG,                "ABWEICHENDER_EMPFÄNGER",                "ANZAHL_DER_AUFTRÄGE",                ANZAHL_DER_SCHECKS,
+                "FREMDE_GEBÜHREN"
+                ,TO_NUMBER( BETRAG ,  '999g999g999d99' ,q'[NLS_NUMERIC_CHARACTERS = ',.']' )   BETRAG               
+                ,  "ABWEICHENDER_EMPFÄNGER",                "ANZAHL_DER_AUFTRÄGE",                ANZAHL_DER_SCHECKS,
                 TO_NUMBER( soll,  '999g999g999d99' ,q'[NLS_NUMERIC_CHARACTERS = ',.']' )   SOLL,               
                 TO_NUMBER( haben, '999g999g999d99' ,q'[NLS_NUMERIC_CHARACTERS = ',.']' )   HABEN,               
                 "WÄHRUNG",            l_bank_alias_used ,            pi_bank_code
